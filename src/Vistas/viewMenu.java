@@ -49,6 +49,11 @@ public class viewMenu extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Persona");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         JMagregarPersona.setText("Agregar Persona");
         JMagregarPersona.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +64,11 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu1.add(JMagregarPersona);
 
         JMeditarPersona.setText("Editar o quitar persona");
+        JMeditarPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMeditarPersonaActionPerformed(evt);
+            }
+        });
         jMenu1.add(JMeditarPersona);
 
         JMlistarPersona.setText("Listar persona");
@@ -69,9 +79,19 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu2.setText("Laboratorio");
 
         JMagregarLaboratorio.setText("Agregar Laboratorio");
+        JMagregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMagregarLaboratorioActionPerformed(evt);
+            }
+        });
         jMenu2.add(JMagregarLaboratorio);
 
         JMmodificarLaboratorio.setText("Modifcar/Eliminar Laboratorio");
+        JMmodificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMmodificarLaboratorioActionPerformed(evt);
+            }
+        });
         jMenu2.add(JMmodificarLaboratorio);
 
         JMlistarLaboratorio.setText("Listar Laboratorio");
@@ -122,6 +142,40 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vap);
         escritorio.moveToFront(vap);
     }//GEN-LAST:event_JMagregarPersonaActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void JMagregarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMagregarLaboratorioActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewAgregarLaboratorio val = new viewAgregarLaboratorio();
+        val.setVisible(true);
+        escritorio.add(val);
+        escritorio.moveToFront(val);
+    }//GEN-LAST:event_JMagregarLaboratorioActionPerformed
+
+    private void JMmodificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMmodificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewModElimLaboratorio vml = new viewModElimLaboratorio();
+        vml.setVisible(true);
+        escritorio.add(vml);
+        escritorio.moveToFront(vml);
+    }//GEN-LAST:event_JMmodificarLaboratorioActionPerformed
+
+    private void JMeditarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMeditarPersonaActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewEditarPersona vep = new viewEditarPersona();
+        vep.setVisible(true);
+        escritorio.add(vep);
+        escritorio.moveToFront(vep);
+    }//GEN-LAST:event_JMeditarPersonaActionPerformed
 
     /**
      * @param args the command line arguments

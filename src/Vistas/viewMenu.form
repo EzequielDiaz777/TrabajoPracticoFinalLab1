@@ -8,6 +8,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Persona"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu1ActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="JMagregarPersona">
               <Properties>
@@ -21,6 +24,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar o quitar persona"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMeditarPersonaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="JMlistarPersona">
               <Properties>
@@ -38,11 +44,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar Laboratorio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMagregarLaboratorioActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="JMmodificarLaboratorio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modifcar/Eliminar Laboratorio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMmodificarLaboratorioActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="JMlistarLaboratorio">
               <Properties>
