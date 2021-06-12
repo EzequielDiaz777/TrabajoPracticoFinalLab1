@@ -20,14 +20,14 @@ public class PersonaData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public PersonaData() {
         try {
             connection = Conexion.getConexion();
         } catch (SQLException ex) {
-            mensaje("Error al obtener la conexion en PersonaData");
+            mensaje("Error al obtener la conexion en PersonaData. Error: " + ex.getMessage());
         } catch (ClassNotFoundException cnf) {
             mensaje("Error al cargar los drivers.");
         }

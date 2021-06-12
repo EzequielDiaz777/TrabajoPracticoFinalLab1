@@ -5,20 +5,110 @@
  */
 package Vistas;
 
+import Controladores.PatologiaData;
+import Controladores.PersonaData;
+import Modelos.Patologia;
+import Modelos.Persona;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Usuario
+ * @author long_
  */
 public class viewAgregarPersona extends javax.swing.JInternalFrame {
 
+    private PersonaData personaData;
+    private PatologiaData patologiaData;
+
     /**
-     * Creates new form viewAgregarPersona
+     * Creates new form viewAgregarPersonas
+     *
+     * @param personaData
+     * @param patologiaData
      */
-    public viewAgregarPersona() {
+    public viewAgregarPersona(PersonaData personaData, PatologiaData patologiaData) {
         initComponents();
+        this.personaData = personaData;
+        this.patologiaData = patologiaData;
+        jtfAño.setText("aaaa");
+        jtfMes.setText("mm");
+        jtfDia.setText("dd");
+    }
+
+    public void mensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public Patologia guardarPatologia() {
+        Patologia patologia = null;
+        if (!jtfPatologia.getText().isEmpty()) {
+            patologia = new Patologia(jtfPatologia.getText());
+            patologiaData.guardarPatologia(patologia);
+        }
+        return patologia;
+    }
+
+    public void guardarPersona() {
+        String nombre = jtfNombre.getText();
+        String apellido = jtfApellido.getText();
+        String email = jtfEmail.getText() + "@" + jtfDominio + ".com";
+        String celular = jtfCelular.getText();
+        String ciudad = jtfCiudad.getText();
+        String departamento = jtfDepartamento.getText();
+        boolean esencial = jcbTrabajadorEsencial.isSelected();
+        try {
+            if (Integer.parseInt(jtfDNI.getText()) < 1) {
+                mensaje("El DNI debe ser superior a 0.");
+                return;
+            } else if (Integer.parseInt(jtfAño.getText()) < 1900) {
+                mensaje("El año debe encontrarse entre 1900 y la actualidad.");
+                jtfAño.setText("aaaa");
+                jtfMes.setText("mm");
+                jtfDia.setText("dd");
+                return;
+            } else if (LocalDate.now().isBefore(LocalDate.parse(jtfAño.getText() + "-" + jtfMes.getText() + "-" + jtfDia.getText()))) {
+                mensaje("La fecha ingresada es posterior a la fecha actual, por favor modifique la fecha de nacimiento.");
+                jtfAño.setText("aaaa");
+                jtfMes.setText("mm");
+                jtfDia.setText("dd");
+                return;
+            } else if (Double.parseDouble(jtfPeso.getText()) < 0) {
+                mensaje("El peso no puede ser inferior a 0.");
+                return;
+            } else if (Double.parseDouble(jtfAltura.getText()) < 0) {
+                mensaje("La altura no puede ser inferior a 0.");
+                return;
+            }
+            Persona persona = new Persona(guardarPatologia(), Integer.parseInt(jtfDNI.getText()), nombre, apellido, Double.parseDouble(jtfPeso.getText()), Double.parseDouble(jtfAltura.getText()), email, jcbTrabajadorEsencial.isSelected(), celular, LocalDate.parse(jtfAño.getText() + "-" + jtfMes.getText() + "-" + jtfDia.getText()), ciudad, departamento);
+            personaData.guardarPersona(persona);
+        } catch (DateTimeParseException dateTimeParseException) {
+            mensaje("El formato de la fecha es erroneo o ha ingresado mal la fecha.");
+            jtfAño.setText("aaaa");
+            jtfMes.setText("mm"); 
+            jtfDia.setText("dd");
+        } catch (NumberFormatException nfe) {
+            mensaje("Este campo solo puede recibir numeros.");
+        }
+    }
+
+    public void limpiar() {
+        jtfAltura.setText("");
+        jtfApellido.setText("");
+        jtfAño.setText("aaaa");
+        jtfCelular.setText("");
+        jtfCiudad.setText("");
+        jtfDNI.setText("");
+        jtfDepartamento.setText("");
+        jtfDia.setText("dd");
+        jtfEmail.setText("");
+        jtfMes.setText("mm");
+        jtfNombre.setText("");
+        jtfPatologia.setText("");
+        jtfPeso.setText("");
+        jcbTrabajadorEsencial.setSelected(false);
     }
 
     /**
@@ -30,78 +120,247 @@ public class viewAgregarPersona extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jcbTrabajoEsencial = new javax.swing.JCheckBox();
-        jtDni = new javax.swing.JTextField();
-        jtNombre = new javax.swing.JTextField();
-        jtApellido = new javax.swing.JTextField();
-        jtPeso = new javax.swing.JTextField();
-        jtAltura = new javax.swing.JTextField();
-        jtEmail = new javax.swing.JTextField();
-        jtCelular = new javax.swing.JTextField();
-        jtFechaDeNacimiento = new javax.swing.JTextField();
-        jtCiudad = new javax.swing.JTextField();
-        jtDepartamento = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jlPeso = new javax.swing.JLabel();
+        jlEmail = new javax.swing.JLabel();
+        jlDia = new javax.swing.JLabel();
+        jlAltura = new javax.swing.JLabel();
+        jtfDia = new javax.swing.JTextField();
+        jtfEmail = new javax.swing.JTextField();
+        jtfPeso = new javax.swing.JTextField();
+        jtfAltura = new javax.swing.JTextField();
+        jlPersona = new javax.swing.JLabel();
+        jlCelular = new javax.swing.JLabel();
+        jlNombre = new javax.swing.JLabel();
+        jtfNombre = new javax.swing.JTextField();
+        jlFechaDeNacimiento = new javax.swing.JLabel();
+        jlTrabajadorEsencial = new javax.swing.JLabel();
+        jlDepartamento = new javax.swing.JLabel();
+        jtfCelular = new javax.swing.JTextField();
+        jtfAño = new javax.swing.JTextField();
+        jtfDepartamento = new javax.swing.JTextField();
+        jcbTrabajadorEsencial = new javax.swing.JCheckBox();
+        jlPatologia = new javax.swing.JLabel();
+        jbGuardar = new javax.swing.JButton();
+        jtfPatologia = new javax.swing.JTextField();
+        jlApellido = new javax.swing.JLabel();
+        jtfApellido = new javax.swing.JTextField();
+        jlDNI = new javax.swing.JLabel();
+        jtfDNI = new javax.swing.JTextField();
+        jlAño = new javax.swing.JLabel();
+        jlMes = new javax.swing.JLabel();
+        jtfMes = new javax.swing.JTextField();
+        jlCiudad = new javax.swing.JLabel();
+        jtfCiudad = new javax.swing.JTextField();
+        jlArroba = new javax.swing.JLabel();
+        jtfDominio = new javax.swing.JTextField();
+        jlPuntoCom = new javax.swing.JLabel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
+        jlPeso.setText("Peso:");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Agregar Persona");
+        jlEmail.setText("Email:");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("DNI:");
+        jlDia.setText("Día:");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setText("NOMBRE:");
+        jlAltura.setText("Altura:");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setText("APELLIDO:");
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setText("PESO:");
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setText("ALTURA:");
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel7.setText("EMAIL:");
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel8.setText("TRABAJO ESENCIAL:");
-
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel9.setText("CELULAR:");
-
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel10.setText("FECHA DE NACIMIENTO:");
-
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel11.setText("CIUDAD:");
-
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel12.setText("DEPARTAMENTO:");
-
-        jButton1.setText("Agregar ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jtfDia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfDiaFocusGained(evt);
             }
         });
+        jtfDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDiaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDiaKeyTyped(evt);
+            }
+        });
+
+        jtfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfEmailKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfEmailKeyTyped(evt);
+            }
+        });
+
+        jtfPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPesoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfPesoKeyTyped(evt);
+            }
+        });
+
+        jtfAltura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfAlturaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfAlturaKeyTyped(evt);
+            }
+        });
+
+        jlPersona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlPersona.setText("Agregar persona");
+
+        jlCelular.setText("Celular:");
+
+        jlNombre.setText("Nombre:");
+
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyTyped(evt);
+            }
+        });
+
+        jlFechaDeNacimiento.setText("Fec. de nac:");
+
+        jlTrabajadorEsencial.setText("¿Es un trabajador esencial?");
+
+        jlDepartamento.setText("Departamento:");
+
+        jtfCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfCelularKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCelularKeyTyped(evt);
+            }
+        });
+
+        jtfAño.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfAñoFocusGained(evt);
+            }
+        });
+        jtfAño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfAñoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfAñoKeyTyped(evt);
+            }
+        });
+
+        jtfDepartamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDepartamentoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDepartamentoKeyTyped(evt);
+            }
+        });
+
+        jcbTrabajadorEsencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTrabajadorEsencialActionPerformed(evt);
+            }
+        });
+        jcbTrabajadorEsencial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbTrabajadorEsencialKeyPressed(evt);
+            }
+        });
+
+        jlPatologia.setText("Si posee alguna patologia de riesgo indique cual:");
+
+        jbGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/agregar.png"))); // NOI18N
+        jbGuardar.setToolTipText("");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
+        jbGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbGuardarKeyPressed(evt);
+            }
+        });
+
+        jtfPatologia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPatologiaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfPatologiaKeyTyped(evt);
+            }
+        });
+
+        jlApellido.setText("Apellido:");
+
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyTyped(evt);
+            }
+        });
+
+        jlDNI.setText("DNI:");
+
+        jtfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDNIKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDNIKeyTyped(evt);
+            }
+        });
+
+        jlAño.setText("Año:");
+
+        jlMes.setText("Mes:");
+
+        jtfMes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfMesFocusGained(evt);
+            }
+        });
+        jtfMes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfMesKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfMesKeyTyped(evt);
+            }
+        });
+
+        jlCiudad.setText("Ciudad:");
+
+        jtfCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfCiudadActionPerformed(evt);
+            }
+        });
+        jtfCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfCiudadKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCiudadKeyTyped(evt);
+            }
+        });
+
+        jlArroba.setText("@");
+
+        jtfDominio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDominioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDominioKeyTyped(evt);
+            }
+        });
+
+        jlPuntoCom.setText(".com");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,145 +369,465 @@ public class viewAgregarPersona extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jlPersona)
+                        .addGap(213, 213, 213))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtDni)
-                            .addComponent(jtNombre)
-                            .addComponent(jtApellido)
-                            .addComponent(jtPeso)
-                            .addComponent(jtAltura)
-                            .addComponent(jtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jlEmail)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfEmail))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlFechaDeNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlAño)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfAño, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlMes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlDia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfDia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlPatologia, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlCelular)
+                                    .addComponent(jlAltura))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtfAltura)
+                                    .addComponent(jtfCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlNombre)
+                                    .addComponent(jlCiudad))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                    .addComponent(jtfCiudad))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jcbTrabajoEsencial)
-                                        .addComponent(jtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                        .addComponent(jtFechaDeNacimiento)
-                                        .addComponent(jtCiudad))
-                                    .addComponent(jtDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlApellido)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtfApellido))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlPeso)
+                                            .addComponent(jlDNI))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jtfDNI)
+                                            .addComponent(jtfPeso)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jtfPatologia)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jlDepartamento)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jtfDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlTrabajadorEsencial)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jcbTrabajadorEsencial)))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(10, 10, 10)
+                                .addComponent(jlArroba)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfDominio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlPuntoCom)))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbGuardar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlPersona)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbTrabajoEsencial)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel8)
-                                .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel9)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel10)
-                            .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtFechaDeNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlNombre)
+                            .addComponent(jlApellido)
+                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(jtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel11))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlCiudad)
+                                .addComponent(jtfCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jlDepartamento)
+                                .addComponent(jtfDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlFechaDeNacimiento)
+                            .addComponent(jlAño)
+                            .addComponent(jtfAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlMes)
+                            .addComponent(jtfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlDia)
+                            .addComponent(jtfDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlDNI)
+                            .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                            .addComponent(jlPeso)
+                            .addComponent(jtfPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlAltura)
+                            .addComponent(jtfAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                            .addComponent(jlCelular)
+                            .addComponent(jtfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTrabajadorEsencial, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jcbTrabajadorEsencial))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlPatologia)
+                    .addComponent(jtfPatologia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlEmail)
+                    .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlArroba)
+                    .addComponent(jtfDominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlPuntoCom))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbGuardar)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
-        /* Faltan los Controles */
-        
-        long dni = Long.parseLong(jtDni.getText()); 
-        String nom = jtNombre.getText();
-        String ape = jtApellido.getText();
-        float peso = Float.parseFloat(jtPeso.getText());
-        float alt = Float.parseFloat(jtAltura.getText());
-        String email = jtEmail.getText();
-        boolean trabajo = jcbTrabajoEsencial.isSelected();
-        long celular = Long.parseLong(jtCelular.getText());
-        LocalDate fecha = LocalDate.parse(jtFechaDeNacimiento.getText());
-        String ciu = jtCiudad.getText();
-        String dep = jtDepartamento.getText();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jtfDiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfDiaFocusGained
+        if (jtfDia.getText().equals("dd")) {
+            jtfDia.setText("");
+        }
+    }//GEN-LAST:event_jtfDiaFocusGained
+
+    private void jtfDiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDiaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfDiaKeyPressed
+
+    private void jtfDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDiaKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+        String Caracteres = jtfDia.getText();
+        if (Caracteres.length() >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfDiaKeyTyped
+
+    private void jtfEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEmailKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfEmailKeyPressed
+
+    private void jtfEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEmailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfEmailKeyTyped
+
+    private void jtfPesoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfPesoKeyPressed
+
+    private void jtfPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfPesoKeyTyped
+
+    private void jtfAlturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAlturaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfAlturaKeyPressed
+
+    private void jtfAlturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAlturaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfAlturaKeyTyped
+
+    private void jtfNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfNombreKeyPressed
+
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c))) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreKeyTyped
+
+    private void jtfCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCelularKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfCelularKeyPressed
+
+    private void jtfCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCelularKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCelularKeyTyped
+
+    private void jtfAñoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfAñoFocusGained
+        if (jtfAño.getText().equals("aaaa")) {
+            jtfAño.setText("");
+        }
+    }//GEN-LAST:event_jtfAñoFocusGained
+
+    private void jtfAñoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAñoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfAñoKeyPressed
+
+    private void jtfAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAñoKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+        String Caracteres = jtfAño.getText();
+        if (Caracteres.length() >= 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfAñoKeyTyped
+
+    private void jtfDepartamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDepartamentoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfDepartamentoKeyPressed
+
+    private void jtfDepartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDepartamentoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfDepartamentoKeyTyped
+
+    private void jcbTrabajadorEsencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTrabajadorEsencialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTrabajadorEsencialActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+        } else {
+            guardarPersona();
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbGuardarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jbGuardarKeyPressed
+
+    private void jtfPatologiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPatologiaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfPatologiaKeyPressed
+
+    private void jtfPatologiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPatologiaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfPatologiaKeyTyped
+
+    private void jtfApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfApellidoKeyPressed
+
+    private void jtfApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfApellidoKeyTyped
+
+    private void jtfDNIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDNIKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfDNIKeyPressed
+
+    private void jtfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDNIKeyTyped
+        if (!(Character.isDigit(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfDNIKeyTyped
+
+    private void jtfMesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfMesFocusGained
+        if (jtfMes.getText().equals("mm")) {
+            jtfMes.setText("");
+        }
+    }//GEN-LAST:event_jtfMesFocusGained
+
+    private void jtfMesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMesKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfMesKeyPressed
+
+    private void jtfMesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+        String Caracteres = jtfMes.getText();
+        if (Caracteres.length() >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfMesKeyTyped
+
+    private void jtfCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCiudadKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfCiudadKeyPressed
+
+    private void jtfCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCiudadKeyTyped
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            } else {
+                guardarPersona();
+            }
+        }
+    }//GEN-LAST:event_jtfCiudadKeyTyped
+
+    private void jcbTrabajadorEsencialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTrabajadorEsencialKeyPressed
+        if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfAño.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfCiudad.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfDepartamento.getText().trim().length() == 0 || jtfDia.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfMes.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+        } else {
+            guardarPersona();
+        }
+    }//GEN-LAST:event_jcbTrabajadorEsencialKeyPressed
+
+    private void jtfCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCiudadActionPerformed
+
+    private void jtfDominioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDominioKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfDominioKeyPressed
+
+    private void jtfDominioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDominioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfDominioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JCheckBox jcbTrabajoEsencial;
-    private javax.swing.JTextField jtAltura;
-    private javax.swing.JTextField jtApellido;
-    private javax.swing.JTextField jtCelular;
-    private javax.swing.JTextField jtCiudad;
-    private javax.swing.JTextField jtDepartamento;
-    private javax.swing.JTextField jtDni;
-    private javax.swing.JTextField jtEmail;
-    private javax.swing.JTextField jtFechaDeNacimiento;
-    private javax.swing.JTextField jtNombre;
-    private javax.swing.JTextField jtPeso;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JCheckBox jcbTrabajadorEsencial;
+    private javax.swing.JLabel jlAltura;
+    private javax.swing.JLabel jlApellido;
+    private javax.swing.JLabel jlArroba;
+    private javax.swing.JLabel jlAño;
+    private javax.swing.JLabel jlCelular;
+    private javax.swing.JLabel jlCiudad;
+    private javax.swing.JLabel jlDNI;
+    private javax.swing.JLabel jlDepartamento;
+    private javax.swing.JLabel jlDia;
+    private javax.swing.JLabel jlEmail;
+    private javax.swing.JLabel jlFechaDeNacimiento;
+    private javax.swing.JLabel jlMes;
+    private javax.swing.JLabel jlNombre;
+    private javax.swing.JLabel jlPatologia;
+    private javax.swing.JLabel jlPersona;
+    private javax.swing.JLabel jlPeso;
+    private javax.swing.JLabel jlPuntoCom;
+    private javax.swing.JLabel jlTrabajadorEsencial;
+    private javax.swing.JTextField jtfAltura;
+    private javax.swing.JTextField jtfApellido;
+    private javax.swing.JTextField jtfAño;
+    private javax.swing.JTextField jtfCelular;
+    private javax.swing.JTextField jtfCiudad;
+    private javax.swing.JTextField jtfDNI;
+    private javax.swing.JTextField jtfDepartamento;
+    private javax.swing.JTextField jtfDia;
+    private javax.swing.JTextField jtfDominio;
+    private javax.swing.JTextField jtfEmail;
+    private javax.swing.JTextField jtfMes;
+    private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtfPatologia;
+    private javax.swing.JTextField jtfPeso;
     // End of variables declaration//GEN-END:variables
 }

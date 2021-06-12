@@ -18,22 +18,15 @@ import javax.swing.JOptionPane;
  */
 public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
 
+    private LaboratorioData laboratorioData;
+    
     /**
      * Creates new form viewLaboratorio
      */
-    private LaboratorioData laboratorioData;
-    private Conexion conexion;
     
-    public viewModElimLaboratorio() {
+    public viewModElimLaboratorio(LaboratorioData laboratorioData) {
         initComponents();    
-        try {
-            
-            conexion = new Conexion();
-            laboratorioData = new LaboratorioData(conexion);
-        }catch(ClassNotFoundException ex){
-            System.out.println("No se pudo crear el LaboratorioData");
-            Logger.getLogger(viewModElimLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.laboratorioData = laboratorioData;
     }
 
     /**
@@ -173,24 +166,24 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDireccionActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-try{ int idLaboratorio;
-        String nombre, pais, direccion;
-                
-        int id = Integer.parseInt(jtId.getText());
-        Laboratorio l = LaboratorioData.buscarLaboratorio(id);
-        if(l != null){
-        nombre = l.getNombreComercial();
-        direccion = l.getDireccion();
-        pais = l.getPaisDeOrigen();
-        
-            jtNombre.setText(nombre);
-        jtDireccion.setText(direccion);
-        //TFechaNac.setText(a.getFecha_nac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        jtPais.setText(pais);
-                }
-    }catch (NumberFormatException ex){
-        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
-    }        // TODO add your handling code here:
+//try{ int idLaboratorio;
+//        String nombre, pais, direccion;
+//                
+//        int id = Integer.parseInt(jtId.getText());
+//        Laboratorio l = LaboratorioData.buscarLaboratorio(id);
+//        if(l != null){
+//        nombre = l.getNombreComercial();
+//        direccion = l.getDireccion();
+//        pais = l.getPaisDeOrigen();
+//        
+//            jtNombre.setText(nombre);
+//        jtDireccion.setText(direccion);
+//        //TFechaNac.setText(a.getFecha_nac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//        jtPais.setText(pais);
+//                }
+//    }catch (NumberFormatException ex){
+//        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
+//    }        // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
 

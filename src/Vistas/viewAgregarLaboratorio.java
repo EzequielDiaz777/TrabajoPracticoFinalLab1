@@ -22,18 +22,10 @@ public class viewAgregarLaboratorio extends javax.swing.JInternalFrame {
      * Creates new form viewLaboratorio
      */
     private LaboratorioData laboratorioData;
-    private Conexion conexion;
     
-    public viewAgregarLaboratorio() {
-        initComponents();    
-        try {
-            
-            conexion = new Conexion();
-            laboratorioData = new LaboratorioData(conexion);
-        }catch(ClassNotFoundException ex){
-            System.out.println("No se pudo crear el LaboratorioData");
-            Logger.getLogger(viewAgregarLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public viewAgregarLaboratorio(LaboratorioData laboratorioData) {
+        initComponents();
+        this.laboratorioData = laboratorioData;
     }
 
     /**
@@ -177,7 +169,7 @@ try{ int idLaboratorio;
         String nombre, pais, direccion;
                 
         int id = Integer.parseInt(jtId.getText());
-        Laboratorio l = LaboratorioData.buscarLaboratorio(id);
+        Laboratorio l = laboratorioData.buscarLaboratorio(id);
         if(l != null){
         nombre = l.getNombreComercial();
         direccion = l.getDireccion();

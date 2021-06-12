@@ -19,14 +19,14 @@ public class CentroDeVacunacionData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public CentroDeVacunacionData() {
         try {
             connection = Conexion.getConexion();
         } catch (SQLException ex) {
-            mensaje("Error al obtener la conexion en CentroDeVacunacionData");
+            mensaje("Error al obtener la conexion en CentroDeVacunacionData. Error: " + ex.getMessage());
         } catch (ClassNotFoundException cnf) {
             mensaje("Error al cargar los drivers.");
         }

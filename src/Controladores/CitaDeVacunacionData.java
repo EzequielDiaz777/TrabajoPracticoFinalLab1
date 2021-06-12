@@ -1,10 +1,6 @@
 package Controladores;
 
 import Modelos.CitaDeVacunacion;
-import Controladores.CentroDeVacunacionData;
-import Controladores.PersonaData;
-import Controladores.DosisData;
-import Modelos.CentroDeVacunacion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -16,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,14 +23,14 @@ public class CitaDeVacunacionData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public CitaDeVacunacionData() {
         try {
             connection = Conexion.getConexion();
         } catch (SQLException ex) {
-            mensaje("Error al obtener la conexion en CitaDeVacunacionData");
+            mensaje("Error al obtener la conexion en CitaDeVacunacionData. Error: " + ex.getMessage());
         } catch (ClassNotFoundException cnf) {
             mensaje("Error al cargar los drivers.");
         }

@@ -162,7 +162,7 @@ public class Persona implements Comparable<Persona> {
 
     @Override
     public String toString() {
-        return "La persona se llama: " + nombre + " " + apellido;
+        return "La persona se llama: " + nombre + " " + apellido + " y su DNI es: " + dni;
     }
 
     @Override
@@ -170,16 +170,12 @@ public class Persona implements Comparable<Persona> {
         final Persona other = (Persona) obj;
         if (patologia == null || other.patologia == null) {
             return ((dni == other.dni) && (nombre.equalsIgnoreCase(other.nombre))
-                    && (apellido.equalsIgnoreCase(other.apellido)) && (email.equalsIgnoreCase(other.email)) && (peso == other.peso)
-                    && (altura == other.altura) && (trabajo == other.trabajo) && (celular.equalsIgnoreCase(other.celular))
-                    && (email.equalsIgnoreCase(other.email)) && (fechaDeNacimiento.equals(other.fechaDeNacimiento))
-                    && (ciudad.equalsIgnoreCase(other.ciudad)) && (departamento.equalsIgnoreCase(other.departamento)));
+                    && (apellido.equalsIgnoreCase(other.apellido)) 
+                    && (fechaDeNacimiento.equals(other.fechaDeNacimiento)));
         } else {
             return ((patologia.equals(other.patologia)) && (dni == other.dni) && (nombre.equalsIgnoreCase(other.nombre))
-                    && (apellido.equalsIgnoreCase(other.apellido)) && (email.equalsIgnoreCase(other.email)) && (peso == other.peso)
-                    && (altura == other.altura) && (trabajo == other.trabajo) && (celular.equalsIgnoreCase(other.celular))
-                    && (email.equalsIgnoreCase(other.email)) && (fechaDeNacimiento.equals(other.fechaDeNacimiento))
-                    && (ciudad.equalsIgnoreCase(other.ciudad)) && (departamento.equalsIgnoreCase(other.departamento)));
+                    && (apellido.equalsIgnoreCase(other.apellido)) 
+                    && (fechaDeNacimiento.equals(other.fechaDeNacimiento)));
         }
     }
 

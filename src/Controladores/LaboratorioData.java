@@ -19,14 +19,14 @@ public class LaboratorioData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public LaboratorioData() {
         try {
             connection = Conexion.getConexion();
         } catch (SQLException ex) {
-            mensaje("Error al obtener la conexion en LaboratorioData");
+            mensaje("Error al obtener la conexion en LaboratorioData. Error: " + ex.getMessage());
         } catch (ClassNotFoundException cnf) {
             mensaje("Error al cargar los drivers.");
         }

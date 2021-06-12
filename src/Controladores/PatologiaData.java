@@ -19,7 +19,7 @@ public class PatologiaData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public PatologiaData() {

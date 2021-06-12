@@ -19,14 +19,14 @@ public class DosisData {
     private Connection connection;
 
     private void mensaje(String mensaje) {
-        System.out.println(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     public DosisData() {
         try {
             connection = Conexion.getConexion();
         } catch (SQLException ex) {
-            mensaje("Error al obtener la conexion en DosisData");
+            mensaje("Error al obtener la conexion en DosisData. Error: " + ex.getMessage());
         } catch (ClassNotFoundException cnf) {
             mensaje("Error al cargar los drivers.");
         }
