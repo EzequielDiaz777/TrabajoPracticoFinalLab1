@@ -50,7 +50,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarLaboratorio">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bucar/Eliminar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Buscar/Eliminar laboratorio"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarLaboratorioActionPerformed"/>

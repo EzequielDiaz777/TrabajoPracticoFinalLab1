@@ -149,9 +149,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jlCiudad" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtfCiudad" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jtfCiudad" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jlDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>

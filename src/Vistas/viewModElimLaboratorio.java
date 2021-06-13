@@ -47,7 +47,6 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         jtNombre = new javax.swing.JTextField();
         jtDireccion = new javax.swing.JTextField();
         jtPais = new javax.swing.JTextField();
-        jbGuardar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
@@ -73,11 +72,19 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardar.setText("Guardar");
-
         jbBorrar.setText("Borrar");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
 
         jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,52 +97,50 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbBorrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbActualizar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(82, 82, 82)
-                            .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                            .addComponent(jbBuscar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(jtDireccion)
-                                .addComponent(jtNombre)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(82, 82, 82)
+                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                .addComponent(jbBuscar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbBorrar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jbActualizar))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(jtDireccion)
+                                        .addComponent(jtNombre))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel1)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                                 .addComponent(jbBuscar)
                                 .addGap(11, 11, 11))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,12 +155,10 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar)
                     .addComponent(jbBorrar)
-                    .addComponent(jbActualizar))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(jbActualizar)))
         );
 
         pack();
@@ -166,25 +169,60 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDireccionActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-//try{ int idLaboratorio;
-//        String nombre, pais, direccion;
-//                
-//        int id = Integer.parseInt(jtId.getText());
-//        Laboratorio l = LaboratorioData.buscarLaboratorio(id);
-//        if(l != null){
-//        nombre = l.getNombreComercial();
-//        direccion = l.getDireccion();
-//        pais = l.getPaisDeOrigen();
-//        
-//            jtNombre.setText(nombre);
-//        jtDireccion.setText(direccion);
-//        //TFechaNac.setText(a.getFecha_nac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-//        jtPais.setText(pais);
-//                }
-//    }catch (NumberFormatException ex){
-//        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
-//    }        // TODO add your handling code here:
+try{ 
+        String nombre, pais, direccion;
+        Laboratorio labo;
+        int id = Integer.parseInt(jtId.getText());
+        labo = laboratorioData.buscarLaboratorio(id);
+        if(labo != null){
+        nombre = labo.getNombreComercial();
+        direccion = labo.getDireccion();
+        pais = labo.getPaisDeOrigen();
+        
+            jtNombre.setText(nombre);
+        jtDireccion.setText(direccion);
+        jtPais.setText(pais);
+                }
+    }catch (NumberFormatException ex){
+        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+int id = Integer.parseInt(jtId.getText());
+if (id !=0){
+laboratorioData.borrarLaboratorio(id);  
+jtId.setText("");
+jtNombre.setText("");
+jtDireccion.setText("");
+jtPais.setText("");
+}else{
+    JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
+}
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+     int id = Integer.parseInt(jtId.getText());
+     String nombre, pais, direccion;
+if (id !=0){
+        nombre = jtNombre.getText();
+        pais = jtPais.getText();
+        direccion = jtDireccion.getText();
+                
+        Laboratorio labo= new Laboratorio(id, nombre, direccion, pais);
+        laboratorioData.actualizarLaboratorio(labo);
+        
+jtId.setText("");
+jtNombre.setText("");
+jtDireccion.setText("");
+jtPais.setText("");
+}else{
+    JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
+}   
+// TODO add your handling code here:
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -196,7 +234,6 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbGuardar;
     private javax.swing.JTextField jtDireccion;
     private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;

@@ -116,7 +116,7 @@ public class viewMenu extends javax.swing.JFrame {
         });
         jmLaboratorio.add(jmiAgregarLaboratorio);
 
-        jmiBuscarEliminarLaboratorio.setText("Bucar/Eliminar laboratorio");
+        jmiBuscarEliminarLaboratorio.setText("Buscar/Eliminar laboratorio");
         jmiBuscarEliminarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiBuscarEliminarLaboratorioActionPerformed(evt);
