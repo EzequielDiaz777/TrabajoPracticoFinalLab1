@@ -308,7 +308,7 @@ public class viewMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        viewEditarPersona vlp = new viewEditarPersona();
+        viewListarPersona vlp = new viewListarPersona();
         vlp.setVisible(true);
         escritorio.add(vlp);
         escritorio.moveToFront(vlp);
