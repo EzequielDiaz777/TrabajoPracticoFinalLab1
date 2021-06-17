@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Modelos.Persona;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,16 +34,16 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
-        jtfNombre = new javax.swing.JTextField();
+        jtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtfApellido = new javax.swing.JTextField();
+        jtApellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jtfDni = new javax.swing.JTextField();
+        jtDni = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jbEditar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jtfIdPersona = new javax.swing.JTextField();
+        jtId = new javax.swing.JTextField();
         jbActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -64,24 +65,34 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
         jLabel4.setText("DNI:");
 
         jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
 
         jLabel5.setText("Id:");
 
         jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jtfNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jtfApellido, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtApellido, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jtfDni, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtDni, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jtfIdPersona, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtId, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jbActualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
@@ -110,12 +121,12 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfNombre)
-                            .addComponent(jtfApellido)
-                            .addComponent(jtfDni, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                            .addComponent(jtNombre)
+                            .addComponent(jtApellido)
+                            .addComponent(jtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(jtfIdPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                         .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(96, 96, 96))))
@@ -126,20 +137,20 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jtfIdPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbEditar))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +200,52 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+        String nombre, ape;
+        long dni;
+        Persona pers;
+        int id = Integer.parseInt(jtId.getText());
+        pers = PersonaData.buscarPersona(id);
+        if(pers != null){
+        nombre = pers.getNombre();                                      /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+        ape = pers.getApellido();                                       /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+        dni = pers.getDni();                                            /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+        
+            jtNombre.setText(nombre);
+        jtApellido.setText(ape);
+        jtDni.setText(dni);
+                }
+    }catch (NumberFormatException ex){
+        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
+    }
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+            
+     int id = Integer.parseInt(jtId.getText());
+     String nombre, ape;
+     long  dni;                                                                         /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+    if (id !=0){
+        nombre = jtNombre.getText();
+        ape = jtApellido.getText();                                                     /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+        dni = jtDni.getText();
+                
+        Persona pers= new Persona(id, nombre, apellido, dni);                                   /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+        PersonaData.actualizarPersona(pers);
+        
+    jtId.setText("");                                                                       /* Eze lo arranque pero no lo puedo ver, si lo podes arreglar, creo que iba bien*/
+    jtNombre.setText("");
+    jtApellido.setText("");
+    jtDni.setText("");
+    }else{
+        JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
+    }
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -202,9 +259,9 @@ public class viewEditarPersona extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbEliminar;
-    private javax.swing.JTextField jtfApellido;
-    private javax.swing.JTextField jtfDni;
-    private javax.swing.JTextField jtfIdPersona;
-    private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtApellido;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtId;
+    private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }
