@@ -322,6 +322,35 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         }
     }
 
+//    public void modificarPersona(){
+//        Persona persona = buscarPersona();
+//        try {
+//            if (persona == null) {
+//                mensaje("La persona no se encuentra en la base de datos.");
+//            } else {
+//                if (persona.getPatologia() == null) {
+//                    jcbPatologias.addItem("Ninguna");
+//                } else {
+//                    jcbPatologias.addItem(persona.getPatologia().getNombrePatologia());
+//                }
+//                persona.setDni(Integer.parseInt(jtfDNI.getText()));
+//                persona.setNombre(title);
+//                persona.setApellido(title);
+//                persona.setEmail(title);
+//                persona.setPeso(title);
+//                persona.setAltura(title);
+//                persona.setTrabajo(title);
+//                persona.setCelular(title);
+//                persona.setFechaDeNacimiento(title);
+//                persona.setDepartamento(title);
+//                persona.setCiudad(title);
+//                jbEliminarPersona.setEnabled(true);
+//            }
+//        } catch (NumberFormatException nfe) {
+//            mensaje("Ingrese un DNI válido.");
+//        }
+//    }
+    
     public void limpiar() {
         jcbPatologias.setEnabled(true);
         jtfDNI.setEditable(true);
@@ -393,7 +422,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbModificar = new javax.swing.JButton();
 
         jlPeso.setText("Peso:");
 
@@ -612,13 +640,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Para poder volver a agregar a una persona haga click en el botón 'limpiar'.");
 
-        jbModificar.setText("Modificar");
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -699,8 +720,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                                 .addComponent(jbBuscarPersona)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbEliminarPersona)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbLimpiar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -768,8 +787,7 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminarPersona)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbSalir)
-                        .addComponent(jbLimpiar)
-                        .addComponent(jbModificar)))
+                        .addComponent(jbLimpiar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -994,10 +1012,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbLimpiarKeyPressed
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -1007,7 +1021,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminarPersona;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
-    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbCiudad;
     private javax.swing.JComboBox<String> jcbDepartamentos;
