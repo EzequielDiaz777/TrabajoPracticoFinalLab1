@@ -50,6 +50,7 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         jbBorrar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
+        jblimpiar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -73,6 +74,7 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         });
 
         jbBorrar.setText("Borrar");
+        jbBorrar.setEnabled(false);
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBorrarActionPerformed(evt);
@@ -80,6 +82,7 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setText("Actualizar");
+        jbActualizar.setEnabled(false);
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbActualizarActionPerformed(evt);
@@ -93,6 +96,13 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
             }
         });
 
+        jblimpiar.setText("Limpiar");
+        jblimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jblimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,14 +111,8 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(82, 82, 82)
-                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                                .addComponent(jbBuscar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
@@ -120,31 +124,37 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jbActualizar))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(jtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                                         .addComponent(jtDireccion)
-                                        .addComponent(jtNombre))))))
+                                        .addComponent(jtNombre))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(82, 82, 82)
+                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jblimpiar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel1)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbBuscar)
-                                .addGap(11, 11, 11))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)))
+                                .addComponent(jblimpiar)))
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,6 +192,8 @@ try{
             jtNombre.setText(nombre);
         jtDireccion.setText(direccion);
         jtPais.setText(pais);
+        jbBorrar.setEnabled(true);
+        jbActualizar.setEnabled(true);
                 }
     }catch (NumberFormatException ex){
         JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
@@ -190,7 +202,7 @@ try{
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
 int id = Integer.parseInt(jtId.getText());
-if (id !=0){
+if (id != Integer.parseInt("")){
 laboratorioData.borrarLaboratorio(id);  
 jtId.setText("");
 jtNombre.setText("");
@@ -206,12 +218,12 @@ jtPais.setText("");
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
      int id = Integer.parseInt(jtId.getText());
      String nombre, pais, direccion;
-if (id !=0){
+if (id != Integer.parseInt("")){
         nombre = jtNombre.getText();
         pais = jtPais.getText();
         direccion = jtDireccion.getText();
                 
-        Laboratorio labo= new Laboratorio(id, nombre, direccion, pais);
+        Laboratorio labo= new Laboratorio(id, direccion, nombre, pais);
         laboratorioData.actualizarLaboratorio(labo);
         
 jtId.setText("");
@@ -224,6 +236,17 @@ jtPais.setText("");
 // TODO add your handling code here:
     }//GEN-LAST:event_jbActualizarActionPerformed
 
+    private void jblimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jblimpiarActionPerformed
+        // TODO add your handling code here:
+        jtId.setText("");
+jtNombre.setText("");
+jtDireccion.setText("");
+jtPais.setText("");
+jbBorrar.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        
+    }//GEN-LAST:event_jblimpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -234,6 +257,7 @@ jtPais.setText("");
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jblimpiar;
     private javax.swing.JTextField jtDireccion;
     private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;
