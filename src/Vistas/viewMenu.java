@@ -6,7 +6,6 @@ import Controladores.DosisData;
 import Controladores.LaboratorioData;
 import Controladores.PatologiaData;
 import Controladores.PersonaData;
-
 /**
  *
  * @author Grupo2
@@ -43,9 +42,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jmbMenu = new javax.swing.JMenuBar();
         jmPersona = new javax.swing.JMenu();
-        jmiAgregarPersona = new javax.swing.JMenuItem();
-        jmiBuscarEliminarPersona = new javax.swing.JMenuItem();
-        jmiListarPersonas = new javax.swing.JMenuItem();
+        jmiAgregarBuscarEliminarPersona = new javax.swing.JMenuItem();
         jmLaboratorio = new javax.swing.JMenu();
         jmiAgregarLaboratorio = new javax.swing.JMenuItem();
         jmiBuscarEliminarLaboratorio = new javax.swing.JMenuItem();
@@ -71,11 +68,11 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 688, Short.MAX_VALUE)
+            .addGap(0, 822, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
+            .addGap(0, 594, Short.MAX_VALUE)
         );
 
         jmPersona.setText("Personas");
@@ -85,29 +82,13 @@ public class viewMenu extends javax.swing.JFrame {
             }
         });
 
-        jmiAgregarPersona.setText("Agregar Persona");
-        jmiAgregarPersona.addActionListener(new java.awt.event.ActionListener() {
+        jmiAgregarBuscarEliminarPersona.setText("Agregar/Buscar/Elminar Persona");
+        jmiAgregarBuscarEliminarPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiAgregarPersonaActionPerformed(evt);
+                jmiAgregarBuscarEliminarPersonaActionPerformed(evt);
             }
         });
-        jmPersona.add(jmiAgregarPersona);
-
-        jmiBuscarEliminarPersona.setText("Buscar/eliminar persona");
-        jmiBuscarEliminarPersona.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiBuscarEliminarPersonaActionPerformed(evt);
-            }
-        });
-        jmPersona.add(jmiBuscarEliminarPersona);
-
-        jmiListarPersonas.setText("Listar personas");
-        jmiListarPersonas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiListarPersonasActionPerformed(evt);
-            }
-        });
-        jmPersona.add(jmiListarPersonas);
+        jmPersona.add(jmiAgregarBuscarEliminarPersona);
 
         jmbMenu.add(jmPersona);
 
@@ -240,16 +221,16 @@ public class viewMenu extends javax.swing.JFrame {
         dispose ();
     }//GEN-LAST:event_jmiSalirActionPerformed
 
-    private void jmiAgregarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarPersonaActionPerformed
+    private void jmiAgregarBuscarEliminarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarBuscarEliminarPersonaActionPerformed
         // TODO add your handling code here:
         
         escritorio.removeAll();
         escritorio.repaint();
-        viewAgregarPersona vap = new viewAgregarPersona(personaData, patologiaData);
+        viewAgBusModElPersona vap = new viewAgBusModElPersona(personaData, patologiaData);
         vap.setVisible(true);
         escritorio.add(vap);
         escritorio.moveToFront(vap);
-    }//GEN-LAST:event_jmiAgregarPersonaActionPerformed
+    }//GEN-LAST:event_jmiAgregarBuscarEliminarPersonaActionPerformed
 
     private void jmPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPersonaActionPerformed
         // TODO add your handling code here:
@@ -275,16 +256,6 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.moveToFront(vml);
     }//GEN-LAST:event_jmiBuscarEliminarLaboratorioActionPerformed
 
-    private void jmiBuscarEliminarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarPersonaActionPerformed
-        // TODO add your handling code here:
-        escritorio.removeAll();
-        escritorio.repaint();
-        viewEditarPersona vep = new viewEditarPersona();
-        vep.setVisible(true);
-        escritorio.add(vep);
-        escritorio.moveToFront(vep);
-    }//GEN-LAST:event_jmiBuscarEliminarPersonaActionPerformed
-
     private void jmiAgregarDosisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarDosisActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiAgregarDosisActionPerformed
@@ -308,16 +279,6 @@ public class viewMenu extends javax.swing.JFrame {
     private void jmiBuscarEliminarCitaDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarCitaDeVacunacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiBuscarEliminarCitaDeVacunacionActionPerformed
-
-    private void jmiListarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarPersonasActionPerformed
-        // TODO add your handling code here:
-        escritorio.removeAll();
-        escritorio.repaint();
-        viewListarPersona vlp = new viewListarPersona();
-        vlp.setVisible(true);
-        escritorio.add(vlp);
-        escritorio.moveToFront(vlp);
-    }//GEN-LAST:event_jmiListarPersonasActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -375,20 +336,18 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jmPersona;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmiAgregarBuscarEliminarPersona;
     private javax.swing.JMenuItem jmiAgregarCentroDeVacunacion;
     private javax.swing.JMenuItem jmiAgregarCitaDeVacunacion;
     private javax.swing.JMenuItem jmiAgregarDosis;
     private javax.swing.JMenuItem jmiAgregarLaboratorio;
-    private javax.swing.JMenuItem jmiAgregarPersona;
     private javax.swing.JMenuItem jmiBuscarEliminarCentroDeVacunacion;
     private javax.swing.JMenuItem jmiBuscarEliminarCitaDeVacunacion;
     private javax.swing.JMenuItem jmiBuscarEliminarDosis;
     private javax.swing.JMenuItem jmiBuscarEliminarLaboratorio;
-    private javax.swing.JMenuItem jmiBuscarEliminarPersona;
     private javax.swing.JMenuItem jmiListarCentrosDeVacunaciones;
     private javax.swing.JMenuItem jmiListarCitasDeVacunaciones;
     private javax.swing.JMenuItem jmiListarDosis;
-    private javax.swing.JMenuItem jmiListarPersonas;
     private javax.swing.JMenuItem jmiSalir;
     // End of variables declaration//GEN-END:variables
 }
