@@ -59,10 +59,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarLaboratorioActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiListarLaboratorios">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listar laboratorios"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -73,7 +76,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarDosis">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Agregar dosis"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarDosisActionPerformed"/>
@@ -81,7 +84,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarDosis">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bucar/Eliminar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Bucar/Eliminar dosis"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarDosisActionPerformed"/>
@@ -89,7 +92,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListarDosis">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listar laboratorios"/>
+                <Property name="text" type="java.lang.String" value="Listar dosis"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -101,7 +104,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarCentroDeVacunacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Agregar centro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarCentroDeVacunacionActionPerformed"/>
@@ -109,7 +112,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarCentroDeVacunacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bucar/Eliminar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Bucar/Eliminar centro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarCentroDeVacunacionActionPerformed"/>
@@ -117,7 +120,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListarCentrosDeVacunaciones">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listar laboratorios"/>
+                <Property name="text" type="java.lang.String" value="Listar centros"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -129,7 +132,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarCitaDeVacunacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Agregar cita"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarCitaDeVacunacionActionPerformed"/>
@@ -137,7 +140,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarCitaDeVacunacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bucar/Eliminar laboratorio"/>
+                <Property name="text" type="java.lang.String" value="Bucar/Eliminar cita"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarCitaDeVacunacionActionPerformed"/>
@@ -145,7 +148,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListarCitasDeVacunaciones">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listar laboratorios"/>
+                <Property name="text" type="java.lang.String" value="Listar cita"/>
               </Properties>
             </MenuItem>
           </SubComponents>
