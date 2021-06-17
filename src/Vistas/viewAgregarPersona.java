@@ -155,6 +155,8 @@ public class viewAgregarPersona extends javax.swing.JInternalFrame {
         jtfDominio = new javax.swing.JTextField();
         jlPuntoCom = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jlPeso.setText("Peso:");
 
         jlEmail.setText("Email:");

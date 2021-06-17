@@ -102,6 +102,11 @@ public class viewMenu extends javax.swing.JFrame {
         jmPersona.add(jmiBuscarEliminarPersona);
 
         jmiListarPersonas.setText("Listar personas");
+        jmiListarPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarPersonasActionPerformed(evt);
+            }
+        });
         jmPersona.add(jmiListarPersonas);
 
         jmbMenu.add(jmPersona);
@@ -298,6 +303,16 @@ public class viewMenu extends javax.swing.JFrame {
     private void jmiBuscarEliminarCitaDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarCitaDeVacunacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiBuscarEliminarCitaDeVacunacionActionPerformed
+
+    private void jmiListarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarPersonasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewEditarPersona vlp = new viewEditarPersona();
+        vlp.setVisible(true);
+        escritorio.add(vlp);
+        escritorio.moveToFront(vlp);
+    }//GEN-LAST:event_jmiListarPersonasActionPerformed
 
     /**
      * @param args the command line arguments
