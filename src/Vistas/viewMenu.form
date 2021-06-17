@@ -14,24 +14,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarPersona">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Persona"/>
+                <Property name="text" type="java.lang.String" value="Agregar/buscar/eliminar Persona"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarPersonaActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarPersona">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar/eliminar persona"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarPersonaActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiListarPersonas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Listar personas"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
