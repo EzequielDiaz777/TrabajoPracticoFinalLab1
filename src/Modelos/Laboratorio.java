@@ -61,7 +61,7 @@ public class Laboratorio implements Comparable<Laboratorio> {
 
     @Override
     public String toString() {
-        return "El laboratorio " + nombreComercial + " tiene su pais de origen en: " + paisDeOrigen;
+        return "Laboratorio " + nombreComercial;
     }
 
     @Override

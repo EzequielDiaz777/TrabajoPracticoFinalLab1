@@ -139,6 +139,11 @@ public class viewMenu extends javax.swing.JFrame {
         jmDosis.add(jmiBuscarEliminarDosis);
 
         jmiListarDosis.setText("Listar dosis");
+        jmiListarDosis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarDosisActionPerformed(evt);
+            }
+        });
         jmDosis.add(jmiListarDosis);
 
         jmbMenu.add(jmDosis);
@@ -257,7 +262,12 @@ public class viewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiBuscarEliminarLaboratorioActionPerformed
 
     private void jmiAgregarDosisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarDosisActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewDosis vd = new viewDosis(dosisData,laboratorioData);
+        vd.setVisible(true);
+        escritorio.add(vd);
+        escritorio.moveToFront(vd);
     }//GEN-LAST:event_jmiAgregarDosisActionPerformed
 
     private void jmiBuscarEliminarDosisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarDosisActionPerformed
@@ -290,6 +300,15 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.moveToFront(vbl);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmiListarDosisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarDosisActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewListarDosis vld = new viewListarDosis(dosisData, laboratorioData);
+        vld.setVisible(true);
+        escritorio.add(vld);
+        escritorio.moveToFront(vld);
+    }//GEN-LAST:event_jmiListarDosisActionPerformed
 
     /**
      * @param args the command line arguments

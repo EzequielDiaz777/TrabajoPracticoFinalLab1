@@ -5,17 +5,26 @@
  */
 package Vistas;
 
+import Controladores.DosisData;
+import Controladores.LaboratorioData;
+import Modelos.Dosis;
+import Modelos.Laboratorio;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author usuario
  */
 public class viewDosis extends javax.swing.JInternalFrame {
-
+private DosisData dosisData;
+private LaboratorioData laboratorioData;
     /**
      * Creates new form viewDosis
      */
-    public viewDosis() {
+    public viewDosis(DosisData dosisData,LaboratorioData laboratorioData ) {
         initComponents();
+        this.dosisData=dosisData;
+        this.laboratorioData=laboratorioData;
     }
 
     /**
@@ -29,12 +38,11 @@ public class viewDosis extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jbGuardar = new javax.swing.JButton();
+        jtNumero = new javax.swing.JTextField();
+        jtIdLaboratorio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -44,11 +52,28 @@ public class viewDosis extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Numero de serie:");
 
-        jLabel3.setText("Disponible?");
-
         jLabel4.setText("Id del laboratorio:");
 
-        jButton1.setText("Guardar");
+        jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
+
+        jtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNumeroKeyTyped(evt);
+            }
+        });
+
+        jtIdLaboratorio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtIdLaboratorioKeyTyped(evt);
+            }
+        });
+
+        jLabel5.setText("Registrar Dosis");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,18 +89,17 @@ public class viewDosis extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
+                                    .addComponent(jbGuardar)
                                     .addComponent(jLabel4))
                                 .addGap(33, 33, 33)
-                                .addComponent(jTextField3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(66, 66, 66)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtIdLaboratorio))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(37, 37, 37)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -83,35 +107,63 @@ public class viewDosis extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtIdLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
-                .addComponent(jButton1)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jbGuardar)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        if (jtNumero.getText().trim().length() == 0 || jtIdLaboratorio.getText().trim().length() == 0 ) {
+            JOptionPane.showMessageDialog(this, "Tiene que completar todos los campos.");
+        } else {
+            guardarDosis();
+        }
+        
+        
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumeroKeyTyped
+        if (!(Character.isDigit(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtNumeroKeyTyped
+
+    private void jtIdLaboratorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtIdLaboratorioKeyTyped
+if (!(Character.isDigit(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtIdLaboratorioKeyTyped
+public void guardarDosis(){
+    
+        int nroSerie = Integer.parseInt(jtNumero.getText());
+        int nroLabo = Integer.parseInt(jtIdLaboratorio.getText());
+        
+        Laboratorio labo = laboratorioData.buscarLaboratorio(nroLabo);
+        Dosis dosis = new Dosis(true, nroSerie, labo);
+        dosisData.guardarDosis(dosis);
+    
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JTextField jtIdLaboratorio;
+    private javax.swing.JTextField jtNumero;
     // End of variables declaration//GEN-END:variables
 }
