@@ -40,7 +40,7 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
         ArrayList<CentroDeVacunacion> lista = centroVacunacion.obtenerCentrosDeVacunaciones();
         CentroDeVacunacion Centro = null;
         if (jtfNombreCentro.getText() == "" ) {
-            mensaje("El DNI debe ser superior a 0.");
+            mensaje("Debe completar con nombre para eliminar");
             return Centro;
         }
         for (int i = 0; i < lista.size(); i++) {
@@ -49,7 +49,7 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
                 return Centro;
             }
         }
-        mensaje("No existe ninguna persona con el Nombre: " + jtfNombreCentro.getText());
+        mensaje("No existe ninguna centro con el Nombre: " + jtfNombreCentro.getText());
         return Centro;
     }
     
@@ -137,9 +137,9 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Para agregar un centro de vacunacion llene todos los campos y presione 'enter' o haga click en el boton 'más'.");
 
-        jLabel7.setText("Para buscar un centro llene el campo ID y haga click en la lupa para poder visualizar todos sus datos.");
+        jLabel7.setText("Para buscar un centro llene el campo Nombre y haga click en la lupa para poder visualizar todos sus datos.");
 
-        jLabel8.setText("Complete el campo ID y precione Eliminar para suprimir un centro de vacunacion.");
+        jLabel8.setText("Complete el campo Nombre y precione Eliminar para suprimir un centro de vacunacion.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,7 +237,7 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
 
     private void jbBuscarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCentroActionPerformed
         // TODO add your handling code here:
-        centroVacunacion.buscarCentroDeVacunacion(Integer.parseInt(jtfId.getText()));
+        centroVacunacion.buscarCentroDeVacunacion(buscarCentro().getIdCentroDeVacunacion());
     }//GEN-LAST:event_jbBuscarCentroActionPerformed
 
     private void jbAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarCentroActionPerformed

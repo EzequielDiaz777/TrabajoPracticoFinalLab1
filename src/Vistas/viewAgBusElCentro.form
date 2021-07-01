@@ -198,12 +198,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Para buscar un centro llene el campo ID y haga click en la lupa para poder visualizar todos sus datos."/>
+        <Property name="text" type="java.lang.String" value="Para buscar un centro llene el campo Nombre y haga click en la lupa para poder visualizar todos sus datos."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Complete el campo ID y precione Eliminar para suprimir un centro de vacunacion."/>
+        <Property name="text" type="java.lang.String" value="Complete el campo Nombre y precione Eliminar para suprimir un centro de vacunacion."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
