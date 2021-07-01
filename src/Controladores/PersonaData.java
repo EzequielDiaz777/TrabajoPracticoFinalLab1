@@ -123,14 +123,6 @@ public class PersonaData {
     }
 
     public void actualizarPersona(Persona persona) {
-        ArrayList<Persona> lista = obtenerPersonas();
-        Persona p = persona;
-        for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).equals(p)) {
-                mensaje(persona.getNombre() + " " + persona.getApellido() + " no ha podido ser actualizada porque no hay cambios que reflejar en la BD.");
-                return;
-            }
-        }
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE persona SET idPatologia = ?, dni = ?, nombre = ?, apellido = ?, peso = ?, altura = ?, email = ?, trabajo = ?, celular = ?, fechaDeNacimiento = ?, ciudad = ?, departamento = ? WHERE idPersona = ?", Statement.RETURN_GENERATED_KEYS);
             if (persona.getPatologia() != null) {

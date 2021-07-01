@@ -236,8 +236,7 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarCentroActionPerformed
 
     private void jbBuscarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCentroActionPerformed
-        // TODO add your handling code here:
-        centroVacunacion.buscarCentroDeVacunacion(Integer.parseInt(jtfId.getText()));
+
     }//GEN-LAST:event_jbBuscarCentroActionPerformed
 
     private void jbAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarCentroActionPerformed
