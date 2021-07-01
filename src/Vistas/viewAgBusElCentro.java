@@ -232,12 +232,14 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
 
     private void jbEliminarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarCentroActionPerformed
         // TODO add your handling code here:
-        centroVacunacion.borrarCentroDeVacunacion(Integer.parseInt(buscarCentro().getNombreCentroDeVacunacion()));
+        centroVacunacion.borrarCentroDeVacunacion(buscarCentro().getIdCentroDeVacunacion());
+        limpiar();
     }//GEN-LAST:event_jbEliminarCentroActionPerformed
 
     private void jbBuscarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCentroActionPerformed
         // TODO add your handling code here:
         centroVacunacion.buscarCentroDeVacunacion(buscarCentro().getIdCentroDeVacunacion());
+        limpiar();
     }//GEN-LAST:event_jbBuscarCentroActionPerformed
 
     private void jbAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarCentroActionPerformed
