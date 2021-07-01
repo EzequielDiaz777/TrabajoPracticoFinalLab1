@@ -53,7 +53,6 @@ public class viewMenu extends javax.swing.JFrame {
         jmiListarDosis = new javax.swing.JMenuItem();
         jmCentroDeVacunacion = new javax.swing.JMenu();
         jmiAgregarCentroDeVacunacion = new javax.swing.JMenuItem();
-        jmiBuscarEliminarCentroDeVacunacion = new javax.swing.JMenuItem();
         jmiListarCentrosDeVacunaciones = new javax.swing.JMenuItem();
         jmCitasDeVacunaciones = new javax.swing.JMenu();
         jmiAgregarCitaDeVacunacion = new javax.swing.JMenuItem();
@@ -150,21 +149,13 @@ public class viewMenu extends javax.swing.JFrame {
 
         jmCentroDeVacunacion.setText("Centros de vacunaciones");
 
-        jmiAgregarCentroDeVacunacion.setText("Agregar centro");
+        jmiAgregarCentroDeVacunacion.setText("Agregar/Eliminar/buscar centro");
         jmiAgregarCentroDeVacunacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiAgregarCentroDeVacunacionActionPerformed(evt);
             }
         });
         jmCentroDeVacunacion.add(jmiAgregarCentroDeVacunacion);
-
-        jmiBuscarEliminarCentroDeVacunacion.setText("Bucar/Eliminar centro");
-        jmiBuscarEliminarCentroDeVacunacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiBuscarEliminarCentroDeVacunacionActionPerformed(evt);
-            }
-        });
-        jmCentroDeVacunacion.add(jmiBuscarEliminarCentroDeVacunacion);
 
         jmiListarCentrosDeVacunaciones.setText("Listar centros");
         jmCentroDeVacunacion.add(jmiListarCentrosDeVacunaciones);
@@ -276,11 +267,13 @@ public class viewMenu extends javax.swing.JFrame {
 
     private void jmiAgregarCentroDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarCentroDeVacunacionActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewAgBusElCentro vc = new viewAgBusElCentro(centroDeVacunacionData);
+        vc.setVisible(true);
+        escritorio.add(vc);
+        escritorio.moveToFront(vc);
     }//GEN-LAST:event_jmiAgregarCentroDeVacunacionActionPerformed
-
-    private void jmiBuscarEliminarCentroDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarCentroDeVacunacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiBuscarEliminarCentroDeVacunacionActionPerformed
 
     private void jmiAgregarCitaDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarCitaDeVacunacionActionPerformed
         // TODO add your handling code here:
@@ -360,7 +353,6 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiAgregarCitaDeVacunacion;
     private javax.swing.JMenuItem jmiAgregarDosis;
     private javax.swing.JMenuItem jmiAgregarLaboratorio;
-    private javax.swing.JMenuItem jmiBuscarEliminarCentroDeVacunacion;
     private javax.swing.JMenuItem jmiBuscarEliminarCitaDeVacunacion;
     private javax.swing.JMenuItem jmiBuscarEliminarDosis;
     private javax.swing.JMenuItem jmiBuscarEliminarLaboratorio;

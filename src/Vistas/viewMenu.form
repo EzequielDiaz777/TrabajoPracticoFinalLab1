@@ -91,18 +91,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarCentroDeVacunacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar centro"/>
+                <Property name="text" type="java.lang.String" value="Agregar/Eliminar/buscar centro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarCentroDeVacunacionActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEliminarCentroDeVacunacion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Bucar/Eliminar centro"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEliminarCentroDeVacunacionActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListarCentrosDeVacunaciones">
