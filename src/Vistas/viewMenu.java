@@ -39,6 +39,7 @@ public class viewMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         escritorio = new javax.swing.JDesktopPane();
         jmbMenu = new javax.swing.JMenuBar();
         jmPersona = new javax.swing.JMenu();
@@ -58,8 +59,12 @@ public class viewMenu extends javax.swing.JFrame {
         jmiAgregarCitaDeVacunacion = new javax.swing.JMenuItem();
         jmiBuscarEliminarCitaDeVacunacion = new javax.swing.JMenuItem();
         jmiListarCitasDeVacunaciones = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmPatologias = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
         jmiSalir = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +76,7 @@ public class viewMenu extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 596, Short.MAX_VALUE)
         );
 
         jmPersona.setText("Personas");
@@ -184,6 +189,18 @@ public class viewMenu extends javax.swing.JFrame {
         jmCitasDeVacunaciones.add(jmiListarCitasDeVacunaciones);
 
         jmbMenu.add(jmCitasDeVacunaciones);
+
+        jMenu1.setText("Patologias");
+
+        jmPatologias.setText("Manejo de patologias");
+        jmPatologias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPatologiasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPatologias);
+
+        jmbMenu.add(jMenu1);
 
         jmSalir.setText("Salir");
 
@@ -303,6 +320,15 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.moveToFront(vld);
     }//GEN-LAST:event_jmiListarDosisActionPerformed
 
+    private void jmPatologiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPatologiasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewPatologias vp = new viewPatologias(patologiaData);
+        vp.setVisible(true);
+        escritorio.add(vp);
+        escritorio.moveToFront(vp);
+    }//GEN-LAST:event_jmPatologiasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -340,11 +366,14 @@ public class viewMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu jmCentroDeVacunacion;
     private javax.swing.JMenu jmCitasDeVacunaciones;
     private javax.swing.JMenu jmDosis;
     private javax.swing.JMenu jmLaboratorio;
+    private javax.swing.JMenuItem jmPatologias;
     private javax.swing.JMenu jmPersona;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenuBar jmbMenu;

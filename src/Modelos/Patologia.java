@@ -39,7 +39,7 @@ public class Patologia implements Comparable<Patologia> {
 
     @Override
     public String toString() {
-        return "El nombre de la patología es: " + nombrePatologia;
+        return nombrePatologia;
 
     }
 
