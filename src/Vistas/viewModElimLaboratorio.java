@@ -188,7 +188,7 @@ try{
         nombre = labo.getNombreComercial();
         direccion = labo.getDireccion();
         pais = labo.getPaisDeOrigen();
-        
+        jtId.setEnabled(false);
             jtNombre.setText(nombre);
         jtDireccion.setText(direccion);
         jtPais.setText(pais);
@@ -196,7 +196,7 @@ try{
         jbActualizar.setEnabled(true);
                 }
     }catch (NumberFormatException ex){
-        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
+        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, pase a la versión PRO para más funciones");
     }        // TODO add your handling code here:
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -208,6 +208,7 @@ jtId.setText("");
 jtNombre.setText("");
 jtDireccion.setText("");
 jtPais.setText("");
+jtId.setEnabled(true);
 }else{
     JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
 }
@@ -230,6 +231,7 @@ jtId.setText("");
 jtNombre.setText("");
 jtDireccion.setText("");
 jtPais.setText("");
+jtId.setEnabled(true);
 }else{
     JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
 }   
@@ -244,6 +246,7 @@ jtDireccion.setText("");
 jtPais.setText("");
 jbBorrar.setEnabled(false);
         jbActualizar.setEnabled(false);
+        jtId.setEnabled(true);
         
     }//GEN-LAST:event_jblimpiarActionPerformed
 

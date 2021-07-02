@@ -7,6 +7,7 @@ package Vistas;
 
 import Controladores.PatologiaData;
 import Modelos.Patologia;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ private DefaultTableModel modelo;
         this.patologiaData=patologiaData;
         modelo = new DefaultTableModel();
         armarCabeceraTabla();
+        borrarFilas();
         cargarPatologias();
         }
     public void armarCabeceraTabla(){
@@ -48,7 +50,18 @@ private DefaultTableModel modelo;
         }
        
     }
-
+    public void borrarFilas(){
+         int nFilas = modelo.getRowCount() - 1;
+        
+        for(int i = nFilas; i >= 0; i--){
+            modelo.removeRow(i);
+        }
+    }
+public void guardarPatologia(){
+        Patologia pato=new Patologia(jtNombre.getText());
+        patologiaData.guardarPatologia(pato);
+        jtNombre.setText("");
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,12 +99,27 @@ private DefaultTableModel modelo;
                 jbGuardarActionPerformed(evt);
             }
         });
+        jbGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbGuardarKeyPressed(evt);
+            }
+        });
 
         jbBorrar.setText("Borrar");
         jbBorrar.setEnabled(false);
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
 
         jbActualizar.setText("Actualizar");
         jbActualizar.setEnabled(false);
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jtListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,6 +143,11 @@ private DefaultTableModel modelo;
 
         jbCancelar.setText("Cancelar");
         jbCancelar.setEnabled(false);
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,26 +195,36 @@ private DefaultTableModel modelo;
                     .addComponent(jbBorrar)
                     .addComponent(jbActualizar)
                     .addComponent(jbCancelar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        Patologia pato=new Patologia(jtNombre.getText());
-        patologiaData.guardarPatologia(pato);
-        jtNombre.setText("");
+        if (jtNombre.getText().trim().length() == 0 ){
+                JOptionPane.showMessageDialog(this, "Falta completar campos.");
+            } else {
+                guardarPatologia();
+                borrarFilas();
+                cargarPatologias();
+         }
                
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        if(jtListado.getSelectedRow()!= 0){
-        int p=jtListado.getSelectedRow();
-        Patologia pato=patologiaData.buscarPatologia(p);
-        //jtNombre.setText(pato.getNombrePatologia());
+        
+        if(jtListado.getSelectedRow() != -1){
+        jbGuardar.setEnabled(false);
+        int fila=jtListado.getSelectedRow();
+        int columna= (int)jtListado.getValueAt(fila, 0);
+        Patologia pato=patologiaData.buscarPatologia(columna);
+        jtNombre.setText(pato.getNombrePatologia());
+        borrarFilas();
+        modelo.addRow(new Object[]{pato.getIdPatologia(), pato.getNombrePatologia()});
+                
         jbBorrar.setEnabled(true);
         jbActualizar.setEnabled(true);
         jbCancelar.setEnabled(true);
@@ -191,6 +234,67 @@ private DefaultTableModel modelo;
             jtNombre.requestFocus();
         }        
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        jtNombre.setText("");
+            jtNombre.requestFocus();
+            jbGuardar.setEnabled(true);
+            jbBorrar.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbCancelar.setEnabled(false);
+        borrarFilas();
+        cargarPatologias();
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        if(jtListado.getSelectedRow() != -1){
+        int fila=jtListado.getSelectedRow();
+        int columna= (int)jtListado.getValueAt(fila, 0);
+        patologiaData.borrarPatologia(columna);
+        jtNombre.setText("");
+        jbGuardar.setEnabled(true);
+        jbBorrar.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbCancelar.setEnabled(false);
+        borrarFilas();
+        cargarPatologias();
+        }else{
+            JOptionPane.showMessageDialog(this, "Para confirmar seleccione de la lista");
+            jtNombre.requestFocus();
+        }        
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        if(jtListado.getSelectedRow() != -1){
+        int fila=jtListado.getSelectedRow();
+        int columna= (int)jtListado.getValueAt(fila, 0);
+        String columnaNombre = (String)jtListado.getValueAt(fila, 1);
+        Patologia pato = new Patologia(columna,columnaNombre);
+        pato.setNombrePatologia(jtNombre.getText());
+        patologiaData.actualizarNombreDeLaPatologia(pato);
+        jtNombre.setText("");
+        jbGuardar.setEnabled(true);
+        jbBorrar.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbCancelar.setEnabled(false);
+        borrarFilas();
+        cargarPatologias();
+        }else{
+            JOptionPane.showMessageDialog(this, "Para confirmar seleccione de la lista");
+            jtNombre.requestFocus();
+        }
+        
+    }//GEN-LAST:event_jbActualizarActionPerformed
+
+    private void jbGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbGuardarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jtNombre.getText().trim().length() == 0 ){
+                JOptionPane.showMessageDialog(this, "Falta completar campos.");
+            } else {
+                guardarPatologia();
+            }
+        }
+    }//GEN-LAST:event_jbGuardarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
