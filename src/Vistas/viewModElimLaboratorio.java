@@ -194,7 +194,9 @@ try{
         jtPais.setText(pais);
         jbBorrar.setEnabled(true);
         jbActualizar.setEnabled(true);
-                }
+                }else{
+            JOptionPane.showMessageDialog(this, "No se encuentra en la DB");
+        }
     }catch (NumberFormatException ex){
         JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, pase a la versión PRO para más funciones");
     }        // TODO add your handling code here:
@@ -202,13 +204,15 @@ try{
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
 int id = Integer.parseInt(jtId.getText());
-if (id != Integer.parseInt("")){
+if (jtId.getText().compareToIgnoreCase("")!=1){
 laboratorioData.borrarLaboratorio(id);  
 jtId.setText("");
 jtNombre.setText("");
 jtDireccion.setText("");
 jtPais.setText("");
 jtId.setEnabled(true);
+jbBorrar.setEnabled(false);
+jbActualizar.setEnabled(false);
 }else{
     JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
 }
@@ -219,7 +223,7 @@ jtId.setEnabled(true);
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
      int id = Integer.parseInt(jtId.getText());
      String nombre, pais, direccion;
-if (id != Integer.parseInt("")){
+if (jtId.getText().compareToIgnoreCase("")!=1){
         nombre = jtNombre.getText();
         pais = jtPais.getText();
         direccion = jtDireccion.getText();
@@ -232,6 +236,8 @@ jtNombre.setText("");
 jtDireccion.setText("");
 jtPais.setText("");
 jtId.setEnabled(true);
+jbBorrar.setEnabled(false);
+jbActualizar.setEnabled(false);
 }else{
     JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
 }   

@@ -130,12 +130,16 @@ public class viewAgregarLaboratorio extends javax.swing.JInternalFrame {
         String nombre = jtNombre.getText();
         String direccion = jtDireccion.getText();
         String pais = jtPais.getText();
-        
+        if(jtNombre.getText().trim().length() != 0  && jtDireccion.getText().trim().length() != 0 && jtPais.getText().trim().length() != 0){
         Laboratorio labo = new Laboratorio(nombre, direccion, pais);
         laboratorioData.guardarLaboratorio(labo);
         jtNombre.setText("");
         jtDireccion.setText("");
         jtPais.setText("");
+        }else{
+            JOptionPane.showMessageDialog(this, "Faltan completar campos");
+            jtNombre.requestFocus();
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
 
