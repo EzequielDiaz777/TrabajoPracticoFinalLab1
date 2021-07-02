@@ -36,21 +36,37 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
     }
     
     
+    public void mostrarCentro() {
+        CentroDeVacunacion cen = buscarCentro();
+
+        if (cen == null) {
+            mensaje("El centro no se encuentra en la base de datos.");
+        } else {
+
+
+            jtfNombreCentro.setText(cen.getNombreCentroDeVacunacion());
+            jtfCiudad.setText(cen.getCiudad());
+            jtfDepartamento.setText(cen.getDepartamento());
+    }
+  }
+    
+    
+    
     public CentroDeVacunacion buscarCentro() {
         ArrayList<CentroDeVacunacion> lista = centroVacunacion.obtenerCentrosDeVacunaciones();
-        CentroDeVacunacion Centro = null;
+        CentroDeVacunacion centro = null;
         if (jtfNombreCentro.getText() == "" ) {
-            mensaje("Debe completar con nombre para eliminar");
-            return Centro;
+            mensaje("Debe completar con nombre");
+            return null;
         }
         for (int i = 0; i < lista.size(); i++) {
-            if (jtfNombreCentro.getText() == lista.get(i).getNombreCentroDeVacunacion()) {
-                Centro = lista.get(i);
-                return Centro;
+            if (jtfNombreCentro.getText().compareToIgnoreCase(lista.get(i).getNombreCentroDeVacunacion())== 0 ) {
+                centro = lista.get(i);
+                return centro;
             }
         }
         mensaje("No existe ninguna centro con el Nombre: " + jtfNombreCentro.getText());
-        return Centro;
+        return centro;
     }
     
     
@@ -238,8 +254,8 @@ public class viewAgBusElCentro extends javax.swing.JInternalFrame {
 
     private void jbBuscarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCentroActionPerformed
         // TODO add your handling code here:
+        mostrarCentro();
         centroVacunacion.buscarCentroDeVacunacion(buscarCentro().getIdCentroDeVacunacion());
-        limpiar();
     }//GEN-LAST:event_jbBuscarCentroActionPerformed
 
     private void jbAgregarCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarCentroActionPerformed
