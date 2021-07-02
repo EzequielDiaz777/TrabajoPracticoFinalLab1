@@ -86,7 +86,7 @@ public class viewMenu extends javax.swing.JFrame {
             }
         });
 
-        jmiAgregarBuscarEliminarPersona.setText("Agregar/Buscar/Elminar Persona");
+        jmiAgregarBuscarEliminarPersona.setText("Agregar/Buscar/Elminar/Modificar Persona");
         jmiAgregarBuscarEliminarPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiAgregarBuscarEliminarPersonaActionPerformed(evt);
@@ -298,7 +298,12 @@ public class viewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiAgregarCentroDeVacunacionActionPerformed
 
     private void jmiAgregarCitaDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarCitaDeVacunacionActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewCitas vc = new viewCitas(personaData, centroDeVacunacionData, dosisData, citaDeVacunacionData);
+        vc.setVisible(true);
+        escritorio.add(vc);
+        escritorio.moveToFront(vc);
     }//GEN-LAST:event_jmiAgregarCitaDeVacunacionActionPerformed
 
     private void jmiBuscarEliminarCitaDeVacunacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEliminarCitaDeVacunacionActionPerformed

@@ -10,6 +10,7 @@ import Controladores.LaboratorioData;
 import Modelos.Dosis;
 import Modelos.Laboratorio;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -50,11 +51,16 @@ private ArrayList<Dosis> listaDosis;
         }
         
     }
-public void armarCabeceraTabla(){
+    
+    public void mensaje(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+    
+    public void armarCabeceraTabla(){
         ArrayList<Object> columnas = new ArrayList<>();
-         columnas.add("ID Dosis");
-         columnas.add("Nro. Serie");
-         columnas.add("Estado");
+        columnas.add("Laboratorio");
+        columnas.add("Nro. Serie");
+        columnas.add("Estado");
           for(Object it: columnas){
              modelo.addColumn(it);
          }
@@ -68,10 +74,44 @@ public void cargarDatos(){
         
         for(Dosis dos : listaDosis){
             if(dos.getLaboratorio().getIdLaboratorio() == labo.getIdLaboratorio()){
-                modelo.addRow(new Object[]{dos.getIdDosis(), dos.getNumDeSerie(), dos.isEstado()});
+                modelo.addRow(new Object[]{dos.getLaboratorio().getNombreComercial(), dos.getNumDeSerie(), dos.isEstado()});
             }
         }
     }
+
+    public void actualizarDosis(){
+        
+    }
+    
+    public void eliminarDosis(){
+        int fila = jtLista.getSelectedRow();
+        if (fila != -1) {
+            Dosis dosis = null;
+            ArrayList<Dosis> listado = dosisData.obtenerDosis();
+            for (int i = 0; i < listado.size(); i++) {
+                if (listado.get(i).getNumDeSerie() == (Integer) jtLista.getValueAt(fila, 1)) {
+                    dosis = listado.get(i);
+                    int o = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar esta dosis?",
+                            "Reponder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    switch (o) {
+                        case 0:
+                            laboratorioData.borrarLaboratorio(dosis.getIdDosis());
+                            cargarDatos();
+                            break;
+                        case 1:
+                            mensaje("La dosis no fue eliminada.");
+                            cargarDatos();
+                            break;
+                        case -1:
+                            mensaje("La dosis no fue eliminada.");
+                            cargarDatos();
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,6 +131,10 @@ public void cargarDatos(){
         jtLista = new javax.swing.JTable();
         jcEstado = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -98,7 +142,7 @@ public void cargarDatos(){
 
         jLabel1.setText("LISTA DE VACUNAS");
 
-        jLabel2.setText("Estado y caracteristicas de las dosis");
+        jLabel2.setText("Estado y caracteristicas de las dosis:");
 
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,6 +165,24 @@ public void cargarDatos(){
 
         jLabel3.setText("Laboratorio");
 
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Para actualizar los datos de la dosis escriba sobre la tabla y luego haga click en el boton 'Actualizar'.");
+
+        jLabel5.setText("Para eliminar una dosis seleccionela de la tabla y haga click en el boton 'Eliminar'.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,20 +190,30 @@ public void cargarDatos(){
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(258, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jButton2)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +225,17 @@ public void cargarDatos(){
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addContainerGap())
         );
 
         pack();
@@ -165,15 +245,27 @@ public void cargarDatos(){
         cargarDatos();
     }//GEN-LAST:event_jcEstadoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        eliminarDosis();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Laboratorio> jcEstado;
     private javax.swing.JTable jtLista;

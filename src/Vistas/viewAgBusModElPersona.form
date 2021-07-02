@@ -98,12 +98,21 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jbGuardar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbBuscarPersona" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbEliminarPersona" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="jcbDNI" min="-2" pref="260" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <Component id="jbModificar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbLimpiar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
@@ -187,15 +196,20 @@
                   <Component id="jtfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jbGuardar" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbGuardar" alignment="1" max="32767" attributes="0"/>
                   <Component id="jbEliminarPersona" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jbBuscarPersona" alignment="1" pref="54" max="32767" attributes="0"/>
-                  <Component id="jbModificar" max="32767" attributes="0"/>
-                  <Component id="jbSalir" max="32767" attributes="0"/>
-                  <Component id="jbLimpiar" max="32767" attributes="0"/>
+                  <Component id="jbSalir" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jbLimpiar" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jbModificar" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jcbDNI" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -426,16 +440,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarPersonaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jbBuscarPersona">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/Lupa miniatura.png"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbBuscarPersonaActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="jbSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
@@ -456,12 +460,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Para agregar a una persona llene todos los campos y presione &apos;enter&apos; o haga click en el boton &apos;m&#xe1;s&apos;."/>
+        <Property name="text" type="java.lang.String" value="Para agregar a una persona llene todos los campos y haga click en el boton &apos;m&#xe1;s&apos;."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Para buscar una persona llene el campo &apos;DNI&apos; y haga click en la lupa para poder visualizar todos sus datos."/>
+        <Property name="text" type="java.lang.String" value="Para buscar una persona selecione un DNI y haga click en la lupa para poder visualizar todos sus datos."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -485,6 +489,30 @@
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Por ultimo para guardar los cambios debe hacer click en el bot&#xf3;n &apos;Modificar&apos;."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jcbDNI">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="popupMenuWillBecomeInvisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="jcbDNIPopupMenuWillBecomeInvisible"/>
+        <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="jcbDNIPopupMenuWillBecomeVisible"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="DNI para buscar:"/>
       </Properties>
     </Component>
   </SubComponents>

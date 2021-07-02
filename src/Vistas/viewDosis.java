@@ -9,6 +9,7 @@ import Controladores.DosisData;
 import Controladores.LaboratorioData;
 import Modelos.Dosis;
 import Modelos.Laboratorio;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +26,22 @@ private LaboratorioData laboratorioData;
         initComponents();
         this.dosisData=dosisData;
         this.laboratorioData=laboratorioData;
+        rellenarComboBoxLaboratorio();
     }
 
+    public void rellenarComboBoxLaboratorio(){
+        jcbLaboratorio.removeAllItems();
+        ArrayList<Laboratorio> listado = laboratorioData.obtenerLaboratorios();
+        for(int i = 0; i < listado.size(); i++){
+            jcbLaboratorio.addItem(listado.get(i));
+        }
+    }
+    
+    public void guardarDosis(){
+        Dosis dosis = new Dosis(true, Integer.parseInt(jtNumero.getText()), (Laboratorio) jcbLaboratorio.getSelectedItem());
+        dosisData.guardarDosis(dosis);
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,8 +56,8 @@ private LaboratorioData laboratorioData;
         jLabel4 = new javax.swing.JLabel();
         jbGuardar = new javax.swing.JButton();
         jtNumero = new javax.swing.JTextField();
-        jtIdLaboratorio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jcbLaboratorio = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -52,7 +67,7 @@ private LaboratorioData laboratorioData;
 
         jLabel2.setText("Numero de serie:");
 
-        jLabel4.setText("Id del laboratorio:");
+        jLabel4.setText("Laboratorio:");
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -64,12 +79,6 @@ private LaboratorioData laboratorioData;
         jtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtNumeroKeyTyped(evt);
-            }
-        });
-
-        jtIdLaboratorio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtIdLaboratorioKeyTyped(evt);
             }
         });
 
@@ -86,21 +95,23 @@ private LaboratorioData laboratorioData;
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jbGuardar)
-                                    .addComponent(jLabel4))
-                                .addGap(33, 33, 33)
-                                .addComponent(jtIdLaboratorio))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(37, 37, 37)
-                                .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel4)))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbLaboratorio, 0, 153, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbGuardar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,23 +127,21 @@ private LaboratorioData laboratorioData;
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtIdLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(jcbLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbGuardar)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        if (jtNumero.getText().trim().length() == 0 || jtIdLaboratorio.getText().trim().length() == 0 ) {
+        if (jtNumero.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Tiene que completar todos los campos.");
         } else {
             guardarDosis();
         }
-        
-        
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumeroKeyTyped
@@ -141,21 +150,6 @@ private LaboratorioData laboratorioData;
         }
     }//GEN-LAST:event_jtNumeroKeyTyped
 
-    private void jtIdLaboratorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtIdLaboratorioKeyTyped
-if (!(Character.isDigit(evt.getKeyChar()))) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtIdLaboratorioKeyTyped
-public void guardarDosis(){
-    
-        int nroSerie = Integer.parseInt(jtNumero.getText());
-        int nroLabo = Integer.parseInt(jtIdLaboratorio.getText());
-        
-        Laboratorio labo = laboratorioData.buscarLaboratorio(nroLabo);
-        Dosis dosis = new Dosis(true, nroSerie, labo);
-        dosisData.guardarDosis(dosis);
-    
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -163,7 +157,7 @@ public void guardarDosis(){
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbGuardar;
-    private javax.swing.JTextField jtIdLaboratorio;
+    private javax.swing.JComboBox<Laboratorio> jcbLaboratorio;
     private javax.swing.JTextField jtNumero;
     // End of variables declaration//GEN-END:variables
 }

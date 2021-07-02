@@ -61,7 +61,7 @@ public class CentroDeVacunacion implements Comparable<CentroDeVacunacion>{
 
     @Override
     public String toString() {
-        return "El centro de vacunación " + nombreCentroDeVacunacion + " se encuentra en: " + ciudad;
+        return  nombreCentroDeVacunacion;
     }
 
     public boolean equals(Object obj) {

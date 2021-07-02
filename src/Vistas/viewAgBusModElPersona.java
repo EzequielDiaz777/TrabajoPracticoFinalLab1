@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -42,6 +41,7 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         rellenarComboBoxDepartamento();
         rellenarComboBoxCiudad();
         rellenarComboBoxPatologias();
+        rellenarComboBoxDNI();
         jbEliminarPersona.setEnabled(false);
         jbModificar.setEnabled(false);
     }
@@ -248,17 +248,17 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     public Persona buscarPersona() {
         ArrayList<Persona> lista = personaData.obtenerPersonas();
         Persona persona = null;
-        if (Integer.parseInt(jtfDNI.getText()) < 1) {
-            mensaje("El DNI debe ser superior a 0.");
-            return persona;
-        }
-        for (int i = 0; i < lista.size(); i++) {
-            if (Integer.parseInt(jtfDNI.getText()) == lista.get(i).getDni()) {
-                persona = lista.get(i);
-                return persona;
+        try {
+            int dni = Integer.parseInt(jcbDNI.getSelectedItem().toString());
+            for (int i = 0; i < lista.size(); i++) {
+                if (dni == lista.get(i).getDni()) {
+                    persona = lista.get(i);
+                    break;
+                }
             }
+        } catch (NumberFormatException nfe) {
+            mensaje("Seleccione un DNI.");
         }
-        mensaje("No existe ninguna persona con el DNI: " + jtfDNI.getText());
         return persona;
     }
 
@@ -266,9 +266,9 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         Persona persona = buscarPersona();
         if (persona != null) {
             jtfDNI.setEditable(false);
-            jbBuscarPersona.setEnabled(false);
             jcbPatologias.removeAllItems();
             jcbCiudad.removeAllItems();
+            jcbDNI.setEnabled(false);
             jcbDepartamentos.removeAllItems();
             if (persona.getPatologia() == null) {
                 jcbPatologias.addItem("Ninguna");
@@ -318,53 +318,62 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                 "Reponder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         switch (c) {
             case 0:
-//                try {
-                if (jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() < 1900 || jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() > 2015) {
-                    mensaje("El año debe encontrarse entre 1900 y 2015.");
-                    return;
-                } else if (Double.parseDouble(jtfPeso.getText()) < 0) {
-                    mensaje("El peso no puede ser inferior a 0.");
-                    jtfPeso.setText("");
-                    return;
-                } else if (Double.parseDouble(jtfAltura.getText()) < 0) {
-                    mensaje("La altura no puede ser inferior a 0.");
-                    jtfAltura.setText("");
-                    return;
-                } else {
-                    String arroba = "@";
-                    String dominio = ".com";
-                    if (!jtfEmail.getText().contains(arroba) || !jtfEmail.getText().contains(dominio)) {
-                        mensaje("El email debe contener '@' y '.com'");
-                        jtfEmail.setText("");
+                try {
+                    if (jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() < 1900 || jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() > 2015) {
+                        mensaje("El año debe encontrarse entre 1900 y 2015.");
+                        return;
+                    } else if (Double.parseDouble(jtfPeso.getText()) < 0) {
+                        mensaje("El peso no puede ser inferior a 0.");
+                        jtfPeso.setText("");
+                        return;
+                    } else if (Double.parseDouble(jtfAltura.getText()) < 0) {
+                        mensaje("La altura no puede ser inferior a 0.");
+                        jtfAltura.setText("");
+                        return;
+                    } else {
+                        String arroba = "@";
+                        String dominio = ".com";
+                        if (!jtfEmail.getText().contains(arroba) || !jtfEmail.getText().contains(dominio)) {
+                            mensaje("El email debe contener '@' y '.com'");
+                            jtfEmail.setText("");
+                            return;
+                        }
+                    }
+                    String ciudad = (String) jcbCiudad.getSelectedItem();
+                    String departamento = (String) jcbDepartamentos.getSelectedItem();
+                    if (departamento.compareTo("Seleccione un departamento.") == 0) {
+                        mensaje("Seleccione un departamento.");
                         return;
                     }
-                }
-                String ciudad = (String) jcbCiudad.getSelectedItem();
-                String departamento = (String) jcbDepartamentos.getSelectedItem();
-                if (departamento.compareTo("Seleccione un departamento.") == 0) {
-                    mensaje("Seleccione un departamento.");
-                    return;
-                }
-                if (ciudad.compareTo("Seleccione una ciudad.") == 0) {
-                    mensaje("Seleccione una ciudad.");
-                    return;
-                }
-                ArrayList<Patologia> listado = patologiaData.obtenerPatologias();
-                Patologia patologia = null;
-                for (int i = 0; i < listado.size(); i++) {
-                    if (jcbPatologias.getSelectedItem().equals(listado.get(i).getNombrePatologia())) {
-                        patologia = listado.get(i);
+                    if (ciudad.compareTo("Seleccione una ciudad.") == 0) {
+                        mensaje("Seleccione una ciudad.");
+                        return;
+                    }
+                    if (persona.getPatologia() != null) {
+                        if ((persona.getPatologia().getNombrePatologia().compareToIgnoreCase(jcbPatologias.getSelectedItem().toString()) == 0) && (persona.getNombre().compareTo(jtfNombre.getText()) == 0) && (persona.getApellido().compareTo(jtfApellido.getText()) == 0)
+                                && (persona.getEmail().compareTo(jtfEmail.getText()) == 0) && (persona.getPeso() == Double.parseDouble(jtfPeso.getText()))
+                                && (persona.getAltura() == Double.parseDouble(jtfAltura.getText()))
+                                && (persona.isTrabajo() == jcbTrabajadorEsencial.isSelected()) && (persona.getCelular().compareTo(jtfCelular.getText()) == 0)
+                                && (persona.getDepartamento().compareTo(departamento) == 0) && (persona.getCiudad().compareTo(ciudad) == 0)) {
+                            mensaje("Debe modificar al menos un campo para poder modificar a la persona.");
+                            break;
+                        }
+                    } else if ((jcbPatologias.getSelectedItem().toString().compareToIgnoreCase("Ninguna") == 0) && (persona.getNombre().compareTo(jtfNombre.getText()) == 0) && (persona.getApellido().compareTo(jtfApellido.getText()) == 0)
+                            && (persona.getEmail().compareTo(jtfEmail.getText()) == 0) && (persona.getPeso() == Double.parseDouble(jtfPeso.getText()))
+                            && (persona.getAltura() == Double.parseDouble(jtfAltura.getText()))
+                            && (persona.isTrabajo() == jcbTrabajadorEsencial.isSelected()) && (persona.getCelular().compareTo(jtfCelular.getText()) == 0)
+                            && (persona.getDepartamento().compareTo(departamento) == 0) && (persona.getCiudad().compareTo(ciudad) == 0)) {
+                        mensaje("Debe modificar al menos un campo para poder modificar a la persona.");
                         break;
                     }
-                }
-                if (((patologia == null) || (persona.getPatologia().equals(patologia))) && (persona.getNombre().compareTo(jtfNombre.getText()) == 0)
-                        && (persona.getApellido().compareTo(jtfApellido.getText()) == 0) && (persona.getEmail().compareTo(jtfEmail.getText()) == 0)
-                        && (persona.getPeso() == Double.parseDouble(jtfPeso.getText())) && (persona.getAltura() == Double.parseDouble(jtfAltura.getText()))
-                        && (persona.isTrabajo() == jcbTrabajadorEsencial.isSelected()) && (persona.getCelular().compareTo(jtfCelular.getText()) == 0)
-                        && (persona.getDepartamento().compareTo(departamento) == 0) && (persona.getCiudad().compareTo(ciudad) == 0)) {
-                    mensaje("Debe modificar al menos un campo para poder modificar a la persona.");
-                    break;
-                } else {
+                    ArrayList<Patologia> listado = patologiaData.obtenerPatologias();
+                    Patologia patologia = null;
+                    for (int i = 0; i < listado.size(); i++) {
+                        if (listado.get(i).getNombrePatologia().compareToIgnoreCase(jcbPatologias.getSelectedItem().toString()) == 0) {
+                            patologia = listado.get(i);
+                            break;
+                        }
+                    }
                     persona.setPatologia(patologia);
                     persona.setNombre(jtfNombre.getText());
                     persona.setApellido(jtfApellido.getText());
@@ -374,7 +383,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                     persona.setTrabajo(jcbTrabajadorEsencial.isSelected());
                     persona.setCelular(jtfCelular.getText());
                     persona.setFechaDeNacimiento(jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    System.out.println(persona + " 6");
                     persona.setDepartamento(departamento);
                     persona.setCiudad(ciudad);
                     personaData.actualizarPersona(persona);
@@ -383,17 +391,17 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                     jbEliminarPersona.setEnabled(false);
                     jbModificar.setEnabled(false);
                     break;
+                } catch (NullPointerException npe) {
+                    mensaje("Por favor, seleccione una fecha de nacimiento.");
+                    return;
                 }
-
-//                } catch (NullPointerException npe) {
-//                    mensaje("Por favor, seleccione una fecha de nacimiento.");
-//                    break;
-//                }
             case 1:
                 mensaje("La persona no ha sido modificada.");
+                System.out.println("case 1");
                 break;
             case -1:
                 mensaje("La persona no ha sido modificada.");
+                System.out.println("case -1");
                 break;
         }
     }
@@ -407,15 +415,26 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         jtfEmail.setText("");
         jtfNombre.setText("");
         jtfPeso.setText("");
+        rellenarComboBoxDNI();
         rellenarComboBoxDepartamento();
         rellenarComboBoxCiudad();
         rellenarComboBoxPatologias();
-        jdcFechaDeNacimiento.setDate(Date.valueOf(LocalDate.now()));
+        jdcFechaDeNacimiento.setDate(null);
         jcbTrabajadorEsencial.setSelected(false);
         jbEliminarPersona.setEnabled(false);
         jbGuardar.setEnabled(true);
         jbModificar.setEnabled(false);
-        jbBuscarPersona.setEnabled(true);
+        jcbDNI.setEnabled(true);
+    }
+
+    public void rellenarComboBoxDNI() {
+        ArrayList<Persona> lista = personaData.obtenerPersonas();
+        jcbDNI.removeAllItems();
+        jcbDNI.addItem("Ninguno");
+        for (int i = 0; i < lista.size(); i++) {
+            String dni = String.valueOf(lista.get(i).getDni());
+            jcbDNI.addItem(dni);
+        }
     }
 
     /**
@@ -454,7 +473,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         jcbCiudad = new javax.swing.JComboBox<>();
         jcbPatologias = new javax.swing.JComboBox<>();
         jbEliminarPersona = new javax.swing.JButton();
-        jbBuscarPersona = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -463,6 +481,8 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         jbModificar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jcbDNI = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
 
         jlPeso.setText("Peso:");
 
@@ -668,13 +688,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
             }
         });
 
-        jbBuscarPersona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa miniatura.png"))); // NOI18N
-        jbBuscarPersona.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarPersonaActionPerformed(evt);
-            }
-        });
-
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -699,9 +712,9 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Para agregar a una persona llene todos los campos y presione 'enter' o haga click en el boton 'más'.");
+        jLabel1.setText("Para agregar a una persona llene todos los campos y haga click en el boton 'más'.");
 
-        jLabel2.setText("Para buscar una persona llene el campo 'DNI' y haga click en la lupa para poder visualizar todos sus datos.");
+        jLabel2.setText("Para buscar una persona selecione un DNI y haga click en la lupa para poder visualizar todos sus datos.");
 
         jLabel3.setText("Para poder volver a agregar a una persona haga click en el botón 'limpiar'.");
 
@@ -715,6 +728,20 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         jLabel4.setText("Para modificar una persona primero debe buscarla y luego editar las celdas que desea modificar.");
 
         jLabel5.setText("Por ultimo para guardar los cambios debe hacer click en el botón 'Modificar'.");
+
+        jcbDNI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbDNI.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jcbDNIPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jcbDNIPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
+        jLabel6.setText("DNI para buscar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -784,12 +811,18 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jbGuardar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jbBuscarPersona)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jbEliminarPersona)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jcbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(81, 81, 81)
+                                            .addComponent(jLabel6)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(jbModificar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jbLimpiar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jbSalir))
@@ -853,14 +886,18 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                     .addComponent(jlEmail)
                     .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbEliminarPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbBuscarPersona, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                    .addComponent(jbModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbEliminarPersona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -931,7 +968,7 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+            mensaje("Faltan rellenar campos.");
         } else {
             guardarPersona();
         }
@@ -940,7 +977,7 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     private void jbGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbGuardarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
-                JOptionPane.showMessageDialog(this, "Faltan rellenar campos.");
+                mensaje("Faltan rellenar campos.");
             } else {
                 guardarPersona();
             }
@@ -1012,14 +1049,6 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
         eliminarPersona();
     }//GEN-LAST:event_jbEliminarPersonaActionPerformed
 
-    private void jbBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarPersonaActionPerformed
-        if (jtfDNI.getText().trim().length() == 0) {
-            mensaje("Ingrese un DNI para buscar.");
-        } else {
-            mostrarPersona();
-        }
-    }//GEN-LAST:event_jbBuscarPersonaActionPerformed
-
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
@@ -1061,8 +1090,20 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbPatologiasPopupMenuWillBecomeVisible
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        modificarPersona();
+            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+                mensaje("Faltan rellenar campos.");
+            } else {
+                modificarPersona();
+            }
     }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jcbDNIPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbDNIPopupMenuWillBecomeVisible
+        rellenarComboBoxDNI();
+    }//GEN-LAST:event_jcbDNIPopupMenuWillBecomeVisible
+
+    private void jcbDNIPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbDNIPopupMenuWillBecomeInvisible
+        mostrarPersona();
+    }//GEN-LAST:event_jcbDNIPopupMenuWillBecomeInvisible
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1071,13 +1112,14 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JButton jbBuscarPersona;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jbEliminarPersona;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbCiudad;
+    private javax.swing.JComboBox<String> jcbDNI;
     private javax.swing.JComboBox<String> jcbDepartamentos;
     private javax.swing.JComboBox<String> jcbPatologias;
     private javax.swing.JCheckBox jcbTrabajadorEsencial;

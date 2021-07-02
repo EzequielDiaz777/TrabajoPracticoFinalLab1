@@ -19,44 +19,76 @@ import javax.swing.table.DefaultTableModel;
  * @author ceratto
  */
 public class viewBuscarLaboratorio extends javax.swing.JInternalFrame {
-    
+
     private LaboratorioData laboratorioData;
     private DefaultTableModel modelo;
+
     /**
      * Creates new form viewLaboratorio
      */
-    
     public viewBuscarLaboratorio(LaboratorioData laboratorioData) {
-        initComponents();    
+        initComponents();
         this.laboratorioData = laboratorioData;
         modelo = new DefaultTableModel();
         armarCabeceraTabla();
         cargaLaboratorios();
-        
-    }
-    public void armarCabeceraTabla(){
-        ArrayList<Object> columnas = new ArrayList<>();
-         columnas.add("ID");
-         columnas.add("Laboratorio");
-         columnas.add("Dirección");
-         columnas.add("País");
-         for(Object it: columnas){
-             
-             modelo.addColumn(it);
-         }
-         jtTabla.setModel(modelo);
-    
-}
-    public void cargaLaboratorios(){
-                      
-        ArrayList<Laboratorio> listaLaboratorio = laboratorioData.obtenerLaboratorios();
-        
-        for(Laboratorio l: listaLaboratorio){
-            modelo.addRow(new Object[]{l.getIdLaboratorio(), l.getNombreComercial(), l.getDireccion(), l.getPaisDeOrigen()});
-        }
-       
     }
 
+    public void mensaje(String mensaje) {
+        JOptionPane.showConfirmDialog(this, mensaje);
+    }
+
+    public void armarCabeceraTabla() {
+        ArrayList<Object> columnas = new ArrayList<>();
+        columnas.add("Laboratorio");
+        columnas.add("Dirección");
+        columnas.add("País");
+        for (Object it : columnas) {
+
+            modelo.addColumn(it);
+        }
+        jtTabla.setModel(modelo);
+
+    }
+    
+    public void cargaLaboratorios() {
+        jtTabla.removeAll();
+        ArrayList<Laboratorio> listaLaboratorio = laboratorioData.obtenerLaboratorios();
+        for (Laboratorio l : listaLaboratorio) {
+            modelo.addRow(new Object[]{l.getNombreComercial(), l.getDireccion(), l.getPaisDeOrigen()});
+        }
+
+    }
+
+    public void eliminarLaboratorio(){
+        int fila = jtTabla.getSelectedRow();
+        if (fila != -1) {
+            Laboratorio laboratorio = null;
+            ArrayList<Laboratorio> listado = laboratorioData.obtenerLaboratorios();
+            for (int i = 0; i < listado.size(); i++) {
+                if (listado.get(i).getNombreComercial().compareToIgnoreCase((String) jtTabla.getValueAt(fila, 0)) == 0) {
+                    laboratorio = listado.get(i);
+                    int o = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar este laboratorio?",
+                            "Reponder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    switch (o) {
+                        case 0:
+                            laboratorioData.borrarLaboratorio(laboratorio.getIdLaboratorio());
+                            cargaLaboratorios();
+                            break;
+                        case 1:
+                            mensaje("El laboratorio no fue eliminado.");
+                            cargaLaboratorios();
+                            break;
+                        case -1:
+                            mensaje("El laboratorio no fue eliminado.");
+                            cargaLaboratorios();
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +102,8 @@ public class viewBuscarLaboratorio extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
+        jbBorrar = new javax.swing.JButton();
+        jbActualizar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -88,8 +122,37 @@ public class viewBuscarLaboratorio extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtTabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtTabla);
+        if (jtTabla.getColumnModel().getColumnCount() > 0) {
+            jtTabla.getColumnModel().getColumn(0).setResizable(false);
+            jtTabla.getColumnModel().getColumn(1).setResizable(false);
+            jtTabla.getColumnModel().getColumn(2).setResizable(false);
+            jtTabla.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jbBorrar.setText("Borrar");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
+
+        jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +167,12 @@ public class viewBuscarLaboratorio extends javax.swing.JInternalFrame {
                         .addGap(130, 130, 130)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbBorrar)
+                .addGap(18, 18, 18)
+                .addComponent(jbActualizar)
+                .addGap(146, 146, 146))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,17 +181,31 @@ public class viewBuscarLaboratorio extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbActualizar)
+                    .addComponent(jbBorrar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        eliminarLaboratorio();
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbActualizar;
+    private javax.swing.JButton jbBorrar;
     private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
 }

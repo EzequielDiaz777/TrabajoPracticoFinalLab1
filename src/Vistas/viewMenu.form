@@ -19,7 +19,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarBuscarEliminarPersona">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar/Buscar/Elminar Persona"/>
+                <Property name="text" type="java.lang.String" value="Agregar/Buscar/Elminar/Modificar Persona"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarBuscarEliminarPersonaActionPerformed"/>

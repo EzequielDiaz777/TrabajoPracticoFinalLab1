@@ -61,7 +61,7 @@ public class Dosis implements Comparable<Dosis> {
 
     @Override
     public String toString() {
-        return "El número de serie de la dosis es: " + numDeSerie;
+        return String.valueOf(numDeSerie);
     }
 
     @Override

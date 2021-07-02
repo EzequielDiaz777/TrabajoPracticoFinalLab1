@@ -39,11 +39,9 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jtId = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
         jtDireccion = new javax.swing.JTextField();
         jtPais = new javax.swing.JTextField();
@@ -59,13 +57,17 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Formulario Manejo de Laboratorios ");
 
-        jLabel2.setText("Id");
-
         jLabel3.setText("Nombre comercial");
 
         jLabel4.setText("Dirección");
 
         jLabel5.setText("País de origen");
+
+        jtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNombreKeyTyped(evt);
+            }
+        });
 
         jtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,63 +114,53 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jbBorrar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jbActualizar))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                                        .addComponent(jtDireccion)
-                                        .addComponent(jtNombre))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(82, 82, 82)
-                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jblimpiar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel1)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtNombre)
+                            .addComponent(jtDireccion)
+                            .addComponent(jtPais)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbBorrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jblimpiar)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 172, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(136, 136, 136))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbBuscar)
-                                .addComponent(jblimpiar)))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4))
-                    .addComponent(jtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbBorrar)
-                    .addComponent(jbActualizar)))
+                    .addComponent(jblimpiar)
+                    .addComponent(jbBuscar)
+                    .addComponent(jbActualizar)
+                    .addComponent(jbBorrar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,6 +171,7 @@ public class viewModElimLaboratorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDireccionActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+<<<<<<< Updated upstream
 try{ 
         String nombre, pais, direccion;
         Laboratorio labo;
@@ -241,12 +234,66 @@ jbActualizar.setEnabled(false);
 }else{
     JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
 }   
+=======
+//try{ 
+//        String nombre, pais, direccion;
+//        Laboratorio labo;
+////        int id = Integer.parseInt(jtId.getText());
+////        labo = laboratorioData.buscarLaboratorio(id);
+////        if(labo != null){
+//        nombre = labo.getNombreComercial();
+//        direccion = labo.getDireccion();
+//        pais = labo.getPaisDeOrigen();
+//        
+//            jtNombre.setText(nombre);
+//        jtDireccion.setText(direccion);
+//        jtPais.setText(pais);
+//        jbBorrar.setEnabled(true);
+//        jbActualizar.setEnabled(true);
+//                }
+//    }catch (NumberFormatException ex){
+//        JOptionPane.showMessageDialog(this, "Solo puede buscar por ID, se trabaja en la próxima versión de busqueda xD");
+//    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+//////int id = Integer.parseInt(jtId.getText());
+//////if (id != Integer.parseInt("")){
+//////laboratorioData.borrarLaboratorio(id);  
+//////jtNombre.setText("");
+//////jtDireccion.setText("");
+//////jtPais.setText("");
+//////}else{
+//////    JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
+//////}
+//////
+//////// TODO add your handling code here:
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+//     int id = Integer.parseInt(jtId.getText());
+//     String nombre, pais, direccion;
+//if (id != Integer.parseInt("")){
+//        nombre = jtNombre.getText();
+//        pais = jtPais.getText();
+//        direccion = jtDireccion.getText();
+//                
+//        Laboratorio labo= new Laboratorio(id, direccion, nombre, pais);
+//        laboratorioData.actualizarLaboratorio(labo);
+//        
+//jtNombre.setText("");
+//jtDireccion.setText("");
+//jtPais.setText("");
+//}else{
+//    JOptionPane.showMessageDialog(this, "Primero ingrese un ID y busque"); 
+//}   
+>>>>>>> Stashed changes
 // TODO add your handling code here:
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jblimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jblimpiarActionPerformed
         // TODO add your handling code here:
-        jtId.setText("");
+        
 jtNombre.setText("");
 jtDireccion.setText("");
 jtPais.setText("");
@@ -256,10 +303,13 @@ jbBorrar.setEnabled(false);
         
     }//GEN-LAST:event_jblimpiarActionPerformed
 
+    private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -268,7 +318,6 @@ jbBorrar.setEnabled(false);
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jblimpiar;
     private javax.swing.JTextField jtDireccion;
-    private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtPais;
     // End of variables declaration//GEN-END:variables
