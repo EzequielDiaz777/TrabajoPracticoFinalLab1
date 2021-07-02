@@ -163,6 +163,11 @@ public class viewMenu extends javax.swing.JFrame {
         jmCentroDeVacunacion.add(jmiAgregarCentroDeVacunacion);
 
         jmiListarCentrosDeVacunaciones.setText("Listar centros");
+        jmiListarCentrosDeVacunaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarCentrosDeVacunacionesActionPerformed(evt);
+            }
+        });
         jmCentroDeVacunacion.add(jmiListarCentrosDeVacunaciones);
 
         jmbMenu.add(jmCentroDeVacunacion);
@@ -328,6 +333,16 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vp);
         escritorio.moveToFront(vp);
     }//GEN-LAST:event_jmPatologiasActionPerformed
+
+    private void jmiListarCentrosDeVacunacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarCentrosDeVacunacionesActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewListarCentro vcl = new viewListarCentro(centroDeVacunacionData);
+        vcl.setVisible(true);
+        escritorio.add(vcl);
+        escritorio.moveToFront(vcl);
+    }//GEN-LAST:event_jmiListarCentrosDeVacunacionesActionPerformed
 
     /**
      * @param args the command line arguments
