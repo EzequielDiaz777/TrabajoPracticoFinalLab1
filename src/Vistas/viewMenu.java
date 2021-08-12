@@ -59,8 +59,6 @@ public class viewMenu extends javax.swing.JFrame {
         jmiAgregarCitaDeVacunacion = new javax.swing.JMenuItem();
         jmiBuscarEliminarCitaDeVacunacion = new javax.swing.JMenuItem();
         jmiListarCitasDeVacunaciones = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jmPatologias = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
         jmiSalir = new javax.swing.JMenuItem();
 
@@ -195,18 +193,6 @@ public class viewMenu extends javax.swing.JFrame {
 
         jmbMenu.add(jmCitasDeVacunaciones);
 
-        jMenu1.setText("Patologias");
-
-        jmPatologias.setText("Manejo de patologias");
-        jmPatologias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmPatologiasActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmPatologias);
-
-        jmbMenu.add(jMenu1);
-
         jmSalir.setText("Salir");
 
         jmiSalir.setText("Salir");
@@ -330,15 +316,6 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.moveToFront(vld);
     }//GEN-LAST:event_jmiListarDosisActionPerformed
 
-    private void jmPatologiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPatologiasActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        viewPatologias vp = new viewPatologias(patologiaData);
-        vp.setVisible(true);
-        escritorio.add(vp);
-        escritorio.moveToFront(vp);
-    }//GEN-LAST:event_jmPatologiasActionPerformed
-
     private void jmiListarCentrosDeVacunacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarCentrosDeVacunacionesActionPerformed
         // TODO add your handling code here:
         escritorio.removeAll();
@@ -386,14 +363,12 @@ public class viewMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu jmCentroDeVacunacion;
     private javax.swing.JMenu jmCitasDeVacunaciones;
     private javax.swing.JMenu jmDosis;
     private javax.swing.JMenu jmLaboratorio;
-    private javax.swing.JMenuItem jmPatologias;
     private javax.swing.JMenu jmPersona;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenuBar jmbMenu;
