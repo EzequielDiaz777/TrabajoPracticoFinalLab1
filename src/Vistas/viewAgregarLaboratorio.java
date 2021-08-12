@@ -148,7 +148,7 @@ public class viewAgregarLaboratorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDireccionActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-<<<<<<< Updated upstream
+
         // TODO add your handling code here:
         String nombre = jtNombre.getText();
         String direccion = jtDireccion.getText();
@@ -163,9 +163,9 @@ public class viewAgregarLaboratorio extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Faltan completar campos");
             jtNombre.requestFocus();
         }
-=======
+
         guardarLaboratorio();
->>>>>>> Stashed changes
+
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtPaisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPaisKeyPressed

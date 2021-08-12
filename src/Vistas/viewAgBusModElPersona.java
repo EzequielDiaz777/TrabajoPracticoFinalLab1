@@ -57,28 +57,31 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                 mensaje("El DNI debe ser superior a 0.");
                 jtfDNI.setText("");
                 return;
-            } else if (fecha.getYear() < 1900 || fecha.getYear() > 2015) {
+            }
+            if (fecha.getYear() < 1900 || fecha.getYear() > 2015) {
                 mensaje("El año debe encontrarse entre 1900 y 2015.");
                 return;
-            } else if (LocalDate.now().isBefore(fecha)) {
+            }
+            if (LocalDate.now().isBefore(fecha)) {
                 mensaje("La fecha ingresada es posterior a la fecha actual, por favor modifique la fecha de nacimiento.");
                 return;
-            } else if (Double.parseDouble(jtfPeso.getText()) < 0) {
+            }
+            if (Double.parseDouble(jtfPeso.getText()) <= 0) {
                 mensaje("El peso no puede ser inferior a 0.");
                 jtfPeso.setText("");
                 return;
-            } else if (Double.parseDouble(jtfAltura.getText()) < 0) {
+            }
+            if (Double.parseDouble(jtfAltura.getText()) <= 0) {
                 mensaje("La altura no puede ser inferior a 0.");
                 jtfAltura.setText("");
                 return;
-            } else {
-                String arroba = "@";
-                String dominio = ".com";
-                if (!jtfEmail.getText().contains(arroba) || !jtfEmail.getText().contains(dominio)) {
-                    mensaje("El email debe contener '@' y '.com'");
-                    jtfEmail.setText("");
-                    return;
-                }
+            }
+            String arroba = "@";
+            String dominio = ".com";
+            if (!jtfEmail.getText().contains(arroba) || !jtfEmail.getText().contains(dominio)) {
+                mensaje("El email debe contener '@' y '.com'");
+                jtfEmail.setText("");
+                return;
             }
             String ciudad = (String) jcbCiudad.getSelectedItem();
             String departamento = (String) jcbDepartamentos.getSelectedItem();
@@ -322,7 +325,8 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
                     if (jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() < 1900 || jdcFechaDeNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() > 2015) {
                         mensaje("El año debe encontrarse entre 1900 y 2015.");
                         return;
-                    } else if (Double.parseDouble(jtfPeso.getText()) < 0) {
+                    }
+                    if (Double.parseDouble(jtfPeso.getText()) < 0) {
                         mensaje("El peso no puede ser inferior a 0.");
                         jtfPeso.setText("");
                         return;
@@ -1090,11 +1094,11 @@ public class viewAgBusModElPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbPatologiasPopupMenuWillBecomeVisible
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-            if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
-                mensaje("Faltan rellenar campos.");
-            } else {
-                modificarPersona();
-            }
+        if (jtfAltura.getText().trim().length() == 0 || jtfApellido.getText().trim().length() == 0 || jtfCelular.getText().trim().length() == 0 || jtfDNI.getText().trim().length() == 0 || jtfEmail.getText().trim().length() == 0 || jtfNombre.getText().trim().length() == 0 || jtfPeso.getText().trim().length() == 0) {
+            mensaje("Faltan rellenar campos.");
+        } else {
+            modificarPersona();
+        }
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcbDNIPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbDNIPopupMenuWillBecomeVisible
